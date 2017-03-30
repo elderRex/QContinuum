@@ -18,8 +18,12 @@ app.service('questionsService', function($http,$location,pathingService) {
 				    url: url, 
 				    method: "GET"
 				 }).then(function(recommendations) { 
-					 debugger;
 					 user_recommendations = recommendations;
+//					 user_recommendations.forEach(function(occ){
+//						 
+//						 
+//						 
+//					 });
 					 // Get Reviews From This Item
 					 
 					 

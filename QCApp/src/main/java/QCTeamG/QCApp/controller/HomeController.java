@@ -106,14 +106,21 @@ public class HomeController {
 		
 		Gson gson = new Gson();
 		 
-		List<String> ls = new ArrayList<String>();
+		List<List<String>> ls = new ArrayList<List<String>>();
 	
 		for (ItemsEntity t : user_recommendations) {
 			List<ReviewsEntity> lre = reviewsDAO.getReviewsByItem(t.getId());
-			t.setReviews(lre);
+			List<String> reviews_str = new ArrayList<String>();
+			for (ReviewsEntity re : lre)
+			{
+				String review = gson.toJson(re);
+				reviews_str.add(review);
+			}
 			String json = new Gson().toJson(t);
-			//String json = gson.toJson(t);
-	        ls.add(json);
+			List<String> combined_item = new ArrayList<String>();
+	        combined_item.add(json);
+			combined_item.add(reviews_str.toString());
+			ls.add(combined_item);
 		}
 	
 		return ls.toString();

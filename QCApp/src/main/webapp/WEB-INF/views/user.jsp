@@ -16,16 +16,16 @@
 	<div class="inner-frame">
 		<div ng-repeat="r in user_recommendations" class="centered-box w-50 h-500">
 				<div class="item-elem">
-					<span>Name: </span><span style="font-weight: none; color : grey;">{{r.name}}</span>
+					<span>Name: </span><span style="font-weight: none; color : grey;">{{r[0].name}}</span>
 				</div>
-				<div class="scroller">
-					{{r.description}}
+				<div class="item-elem">
+					{{r[0].description}}
 				</div>
-				<div class="scroller">
-					{{r}}
+				<div class="scroller" ng-repeat="rev in r" >
+					{{rev}}
 				</div>
-				<div>
-					{{r.website}}
+				<div class="item-elem">
+					{{r[1].website}}
 				</div>
 		</div>
 	</div>
