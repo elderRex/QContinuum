@@ -2,16 +2,42 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
+<jsp:include page="partials/head.jsp"/>
 <head>
 
-	<title>QContinuum</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/pathing.js" />"> </script>
+	<title>Account Setup</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/login.js" />"> </script>
+	<script type="text/javascript" src="<c:url value="/resources/js/users.js" />"> </script>
 
 </head>
-<body ng-app="home" ng-controller="homeController" ng-init="load()">
-	<h1>{{data}}</h1>
- ACCOUNT SETUP
+<body ng-app="home" ng-controller="userController" ng-init="user_setup_init()">
+<div class="overlay" ng-hide="overlay_off">
+	<div class="loader">Loading...</div>
+</div>
+<jsp:include page="partials/navigation.jsp"/>
+	<div class="inner-frame">
+		<div ng-repeat="q in user_answers" class="centered-box w-50 h-500">
+				<div class="item-elem">
+					{{q.iid.name}}
+				</div>
+				<div class="scroller">
+					{{q.review_text}}
+				</div>
+				<div class="ctr well">
+					<div class="title-div-medium">
+						<span>Please read part of the review and tell us if you like it or agree with it</span>
+					</div>
+					<div>
+						<div class="button-option col-xs-4"></div>
+						<div class="button-option col-xs-2">
+								<button ng-click="review_liked()">Like</button>
+						</div>
+						<div class="button-option col-xs-2">
+								<button ng-click="review_liked()">Dislike</button>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
 </body>
 </html>

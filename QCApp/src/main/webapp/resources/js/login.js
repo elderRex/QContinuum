@@ -15,7 +15,7 @@ app.controller('homeController', ['$scope', '$http','$location','pathingService'
 	
 	$scope.logout_user = function()
 	{
-		window.location.href = pathingService.getCurrentPath("/logout");
+		window.location.href = pathingService.getCurrentPath("logout");
 	}
 	
 	// Register New User (Customer) (Just Email)
@@ -29,7 +29,7 @@ app.controller('homeController', ['$scope', '$http','$location','pathingService'
 		{
 			$http.post(pathingService.getCurrentPath('/new-user/register'), $scope.registration).then(function(data) {
 					debugger;
-				window.location.href = pathingService.getCurrentPath('setup');
+				window.location.href = pathingService.getCurrentPath('user/setup');
 			}, function errorCallback(response) {
 				// TODO Error on callback
 			  });

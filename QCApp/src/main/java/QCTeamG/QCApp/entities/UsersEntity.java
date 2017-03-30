@@ -26,6 +26,9 @@ public class UsersEntity {
     
     @Column(name="ENABLED")
     private boolean enabled;
+    
+    @Column(name="ACCOUNT_ACTIVE")
+    private boolean account_active;
  
     @Column(name="EMAIL")
     public String email;
@@ -85,5 +88,13 @@ public class UsersEntity {
     
     public boolean getEnabled() {
         return this.enabled;
+    }
+    
+    public void setAccountActive(Boolean account_active) {
+        this.account_active = account_active;
+    }
+    
+    public boolean getAccountActive() {
+        return this.account_active;
     }
 }

@@ -2,19 +2,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
+<jsp:include page="partials/head.jsp"/>
 <head>
-
-	<title>QContinuum</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/pathing.js" />"> </script>
+	<title>QCApp</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/login.js" />"> </script>
-
 </head>
 <body ng-app="home" ng-controller="homeController" ng-init="load()">
-	<h1>{{data}}</h1>
-	<jsp:include page="create_account.jsp"/>
-	<hr/>
-	<hr/>
-	<jsp:include page="login.jsp"/>
+	<nav class="navigation navbar-fixed-top">
+		<div>
+			<div class="col-xs-6 nav-col">
+			QCApp
+		</div>
+		<div class="col-xs-6"></div>
+			<jsp:include page="partials/login.jsp"/>
+		</div>			
+	</nav>
+	<div class="inner-frame">
+		<jsp:include page="partials/create_account.jsp"/>
+	</div>
 </body>
 </html>

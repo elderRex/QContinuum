@@ -29,8 +29,8 @@ public class ReviewsEntity {
     @Column(name="Rating")
     private String rating;
     
-    @Column(name="Comment")
-    private String comment;
+    @Column(name="REVIEW_TEXT")
+    private String review_text;
     
     @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="iid",referencedColumnName="id")
@@ -38,13 +38,13 @@ public class ReviewsEntity {
  
     @Column(name="DATETIME")
     public Date date;
-     
+    
     public UsersEntity getUid() {
         return uid;
     }
     
-    public void setUid(UsersEntity name) {
-        this.uid = uid;
+    public void setUid(UsersEntity ue) {
+        this.uid = ue;
     }
     
     public String getRating() {
@@ -55,12 +55,12 @@ public class ReviewsEntity {
         this.rating = rating;
     }
     
-	public String getComment() {
-	  return comment;
+	public String getText() {
+	  return review_text;
 	}
 	  
-	public void setComment(String comment) {
-	  this.comment = comment;
+	public void setText(String rt) {
+	  this.review_text = rt;
 	}   
 
     public Date getDate() {

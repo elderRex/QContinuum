@@ -1,14 +1,18 @@
 package QCTeamG.QCApp.controller;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 
 import QCTeamG.QCApp.dao.UsersDAO;
+import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserRolesEntity;
 import QCTeamG.QCApp.entities.UsersEntity;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -25,13 +29,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
-
-
 
 /**
  * Sample controller for going to the home page with a message
@@ -51,36 +54,65 @@ public class HomeController {
 	 * Selects the home page and populates the model with a message
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		logger.info("Welcome home!");
-		model.addAttribute("controllerMessage",
-				"This is the message from the controller!");
-		
-		
+	public String home() {
 		
 		return "home";
 	}
 	
-	@RequestMapping(value = "/setup", method = RequestMethod.GET)
-	public String setup(Model model) {
-		logger.info("Welcome home!");
-		model.addAttribute("controllerMessage",
-				"This is the message from the controller!");
-		
-		
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String redirect_home() {
+		return "home";
+	}
+	
+	@RequestMapping(value = "user/setup", method = RequestMethod.GET)
+	public String setup() {
 		
 		return "setup";
 	}
 	
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String getQuestions() {
+		
+		return "setup";
+	}
+	
+	@Transactional
+	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces={"application/xml", "application/json"})
+	public @ResponseBody String getUserSetupQuestions(Principal principal, HttpServletRequest request) {
+		
+		String prin = principal.getName();		
+		UsersEntity ue = userDAO.getCurrentUser(prin);
+		
+		List<ReviewsEntity> user_questions = userDAO.getUserQuestions(ue.getId());
+		
+		Gson gson = new Gson();
+		 
+		List<String> ls = new ArrayList<String>();
+	
+		for (ReviewsEntity t : user_questions) {
+			String json = gson.toJson(t);
+	        ls.add(json);
+		}
+	
+		return ls.toString();
+		
+	}
+	
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String user(Model model) {
-		logger.info("Welcome home!");
-		model.addAttribute("controllerMessage",
-				"This is the message from the controller!");
+	public String user(Principal principal) {
 		
+		String prin = principal.getName();		
+		UsersEntity ue = userDAO.getCurrentUser(prin);
+        if (ue == null)
+        {
+        		return "home";
+        }
+        else if (ue.getAccountActive() == true)
+        {
+        		return "user";
+        }
 		
-		
-		return "user";
+		return "setup";
 	}
 	
 	public String getHashPassword(String password) {
