@@ -30,22 +30,22 @@ public class UserAnswersEntity {
 	@JoinColumn(name="uid",referencedColumnName="id")
     private UsersEntity uid;
      
-    @Column(name="Rating")
-    private String rating;
+    @Column(name="DOES_LIKE")
+    private Integer rating;
      
     public UsersEntity getUid() {
         return uid;
     }
     
-    public void setUid(UsersEntity name) {
+    public void setUid(UsersEntity uid) {
         this.uid = uid;
     }
     
-    public String getRating() {
+    public Integer getRating() {
         return rating;
     }
         
-    public void setRating(String rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
    

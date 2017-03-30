@@ -2,6 +2,7 @@ package QCTeamG.QCApp.dao;
 
 import java.util.List;
 
+import QCTeamG.QCApp.entities.ItemsEntity;
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserRolesEntity;
 import QCTeamG.QCApp.entities.UsersEntity;
@@ -35,5 +36,7 @@ public interface UsersDAO
 	public void setUserRole(UserRolesEntity ure);
 
 	public List<ReviewsEntity> getUserQuestions(int uid);
+	
+	public List<ItemsEntity> getUserRecommendations(int uid);
     
 }

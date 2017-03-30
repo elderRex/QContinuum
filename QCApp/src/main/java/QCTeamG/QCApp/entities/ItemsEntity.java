@@ -1,5 +1,8 @@
 package QCTeamG.QCApp.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -26,6 +30,9 @@ public class ItemsEntity {
     
     @Column(name="DESCRIPTION")
     private String description;
+    
+    @Transient
+    public List<ReviewsEntity> reviews;
  
     @Column(name="WEBSITE")
     public String website;
@@ -45,6 +52,14 @@ public class ItemsEntity {
     public void setType(String type) {
         this.type = type;
     }
+    
+    public List<ReviewsEntity> getReviews() {
+  	  return reviews;
+  	}
+  	  
+  	public void setReviews(List<ReviewsEntity> lre) {
+  	  this.reviews = lre;
+  	}  
     
 	public String getDescription() {
 	  return description;

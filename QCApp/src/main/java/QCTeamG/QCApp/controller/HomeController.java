@@ -1,19 +1,27 @@
 package QCTeamG.QCApp.controller;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
+import QCTeamG.QCApp.dao.ReviewsDAO;
 import QCTeamG.QCApp.dao.UsersDAO;
+import QCTeamG.QCApp.entities.ItemsEntity;
 import QCTeamG.QCApp.entities.ReviewsEntity;
+import QCTeamG.QCApp.entities.UserAnswersEntity;
 import QCTeamG.QCApp.entities.UserRolesEntity;
 import QCTeamG.QCApp.entities.UsersEntity;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +42,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+
 import com.google.gson.Gson;
 
 /**
@@ -46,6 +56,9 @@ public class HomeController {
 	
 	@Autowired
 	UsersDAO userDAO;
+	
+	@Autowired
+	ReviewsDAO reviewsDAO;
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
@@ -74,6 +87,37 @@ public class HomeController {
 	public String getQuestions() {
 		
 		return "setup";
+	}
+	
+	//@app.route('/recommend/query',methods=['POST'])
+	@Transactional
+	@RequestMapping(value="/user/get-recommendations",method=RequestMethod.GET,produces={"text/plain"})
+	public @ResponseBody String getRecommendations(Principal principal, HttpServletRequest request) throws IOException {
+	     
+		//	    RestTemplate restTemplate = new RestTemplate();
+		//	    String result = restTemplate.getForObject(uri, String.class);
+		//	     
+		//	    System.out.println(result);
+		
+		String prin = principal.getName();		
+		UsersEntity ue = userDAO.getCurrentUser(prin);
+		
+		List<ItemsEntity> user_recommendations = userDAO.getUserRecommendations(ue.getId());
+		
+		Gson gson = new Gson();
+		 
+		List<String> ls = new ArrayList<String>();
+	
+		for (ItemsEntity t : user_recommendations) {
+			List<ReviewsEntity> lre = reviewsDAO.getReviewsByItem(t.getId());
+			t.setReviews(lre);
+			String json = new Gson().toJson(t);
+			//String json = gson.toJson(t);
+	        ls.add(json);
+		}
+	
+		return ls.toString();
+		
 	}
 	
 	@Transactional
@@ -170,6 +214,37 @@ public class HomeController {
 			Integer uid = userDAO.createUser(ue);
 			userDAO.setUserRole(ure);
 			 
+		}
+		
+		@RequestMapping(value = "/user/answer_questions", method = RequestMethod.POST)
+		@ResponseBody
+		public ResponseEntity<String> createUserReviews(@RequestBody String reviews, HttpServletRequest request, Principal principal) {
+			
+			
+			String prin = principal.getName();		
+			UsersEntity ue = userDAO.getCurrentUser(prin);
+			JSONArray all_reviews = new JSONArray(reviews);
+			ue.setAccountActive(true);
+			userDAO.activateUser(ue);
+			
+			try
+			{
+				
+				for (int i = 0; i < all_reviews.length(); i++)
+				{
+					UserAnswersEntity uae = new UserAnswersEntity();
+					ReviewsEntity re = reviewsDAO.getReviewById(all_reviews.getJSONObject(i).getInt("id"));
+					uae.setUid(userDAO.getCurrentUser(prin));
+					uae.setRId(re);
+					uae.setRating(all_reviews.getJSONObject(i).getInt("rating"));
+					reviewsDAO.createUserAnswer(uae);
+				}
+			}
+			catch (Exception e)
+			{
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			}
+			return new ResponseEntity<String>(HttpStatus.OK);
 		}
 	
 	

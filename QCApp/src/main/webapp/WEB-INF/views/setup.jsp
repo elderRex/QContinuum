@@ -16,7 +16,7 @@
 </div>
 <jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
-		<div ng-repeat="q in user_answers" class="centered-box w-50 h-500">
+		<div ng-repeat="q in user_answers" class="centered-box w-50 h-500" ng-show="q.show">
 				<div class="item-elem">
 					{{q.iid.name}}
 				</div>
@@ -27,13 +27,19 @@
 					<div class="title-div-medium">
 						<span>Please read part of the review and tell us if you like it or agree with it</span>
 					</div>
-					<div>
+					<div ng-show="$last">
+						<div class="button-option col-xs-4"></div>
+						<div class="button-option col-xs-4">
+							<button ng-click="submit_answers(true,$index)">Submit Answers</button>
+						</div>
+					</div>
+					<div ng-show="!$last">
 						<div class="button-option col-xs-4"></div>
 						<div class="button-option col-xs-2">
-								<button ng-click="review_liked()">Like</button>
+							<button ng-click="review_liked(true,$index)">Like</button>
 						</div>
 						<div class="button-option col-xs-2">
-								<button ng-click="review_liked()">Dislike</button>
+							<button ng-click="review_liked(false,$index)">Dislike</button>
 						</div>
 					</div>
 				</div>

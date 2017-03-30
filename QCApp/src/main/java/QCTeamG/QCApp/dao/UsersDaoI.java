@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import QCTeamG.QCApp.entities.ItemsEntity;
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserRolesEntity;
 import QCTeamG.QCApp.entities.UsersEntity;
@@ -98,12 +99,16 @@ public class UsersDaoI implements UsersDAO  {
 	}
 
 	public List<ReviewsEntity> getUserQuestions(int uid) {
-//		Query cq = sessionFactory.getCurrentSession().createQuery("SELECT re FROM ReviewsEntity re").setMaxResults(5);
-//		Query cq = sessionFactory.getCurrentSession().createQuery("SELECT ue FROM UsersEntity ue");
-//		return (List<ReviewsEntity>)cq.list();
 		  Query cq = sessionFactory.getCurrentSession().createQuery("select u from ReviewsEntity u ORDER BY rand()").setMaxResults(7);
 		  Object oe = cq.list();
 		return (List<ReviewsEntity>) oe;
+	}
+	
+	public List<ItemsEntity> getUserRecommendations(int uid) {
+		 
+		 Query cq = sessionFactory.getCurrentSession().createQuery("select u from ItemsEntity u ORDER BY rand()").setMaxResults(7);
+		 Object oe = cq.list();
+		 return (List<ItemsEntity>) oe;
 	}
 
 
