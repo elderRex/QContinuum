@@ -1,1 +1,8 @@
 /target/
+/pom.xml
+/src/test/
+/src/main/resources/
+/src/webapp/META-INF/
+/src/webapp/resources/jardir/
+/src/webapp/WEB-INF/spring/
+/src/webapp/WEB-INF/web.xml
