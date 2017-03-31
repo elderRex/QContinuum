@@ -108,10 +108,13 @@ public class HomeController {
 	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces={"application/xml", "application/json"})
 	public @ResponseBody String getUserSetupQuestions(Principal principal, HttpServletRequest request) {
 		
-		String prin = principal.getName();		
-		UsersEntity ue = userDAO.getCurrentUser(prin);
+		HttpSession session = request.getSession(true);
 		
-		List<ReviewsEntity> user_questions = userDAO.getUserQuestions(ue.getId());
+		SessionController sco = new SessionController();
+		beanFactory.autowireBean(sco);
+		Integer uid = sco.getSessionUserId(principal);
+		
+		List<ReviewsEntity> user_questions = userDAO.getUserQuestions(uid);
 		
 		Gson gson = new Gson();
 		 
