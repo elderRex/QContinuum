@@ -23,6 +23,7 @@ body
 .centered-box
 {
 	margin-left : auto;
+	margin-top: 15px;
 	margin-right : auto;
 	min-width: 400px;
 	border: 1px solid #f1f1f1;
@@ -85,4 +86,66 @@ h-100
 	margin-bottom: 15px;
 	font-size: 16px;
 	font-weight: bold;
+}
+.inline-ellipsis
+{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden
+}
+.item-values
+{
+	font-weight: none;
+	color : grey;
+}
+/* 
+
+Loader courtesy of 
+
+https://jsfiddle.net/fs6kafsn/5/
+
+*/
+.loader {
+  left: 45%;
+  width: 2%;
+  top: 40%;
+  font-size: 10px;
+  position: absolute;
+  text-indent: -9999em;
+  border-top: 1.1em solid #add8e6;
+  border-right: 1.1em solid #add8e6;
+  border-bottom: 1.1em solid #add8e6;
+  border-left: 1.1em solid #ffffff;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

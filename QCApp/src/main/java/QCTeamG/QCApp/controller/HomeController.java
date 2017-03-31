@@ -1,9 +1,16 @@
 package QCTeamG.QCApp.controller;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,43 +96,13 @@ public class HomeController {
 		return "setup";
 	}
 	
-	//@app.route('/recommend/query',methods=['POST'])
-	@Transactional
-	@RequestMapping(value="/user/get-recommendations",method=RequestMethod.GET,produces={"text/plain"})
-	public @ResponseBody String getRecommendations(Principal principal, HttpServletRequest request) throws IOException {
-	     
-		//	    RestTemplate restTemplate = new RestTemplate();
-		//	    String result = restTemplate.getForObject(uri, String.class);
-		//	     
-		//	    System.out.println(result);
-		
-		String prin = principal.getName();		
-		UsersEntity ue = userDAO.getCurrentUser(prin);
-		
-		List<ItemsEntity> user_recommendations = userDAO.getUserRecommendations(ue.getId());
-		
-		Gson gson = new Gson();
-		 
-		List<List<String>> ls = new ArrayList<List<String>>();
-	
-		for (ItemsEntity t : user_recommendations) {
-			List<ReviewsEntity> lre = reviewsDAO.getReviewsByItem(t.getId());
-			List<String> reviews_str = new ArrayList<String>();
-			for (ReviewsEntity re : lre)
-			{
-				String review = gson.toJson(re);
-				reviews_str.add(review);
-			}
-			String json = new Gson().toJson(t);
-			List<String> combined_item = new ArrayList<String>();
-	        combined_item.add(json);
-			combined_item.add(reviews_str.toString());
-			ls.add(combined_item);
-		}
-	
-		return ls.toString();
-		
-	}
+//	@Transactional
+//	@RequestMapping(value="/user/get-recommendations",method=RequestMethod.GET,produces={"text/plain"})
+//	public @ResponseBody String getRecommendations(Principal principal, HttpServletRequest request) throws IOException {
+//	     
+//		
+//		
+//	}
 	
 	@Transactional
 	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces={"application/xml", "application/json"})
@@ -182,7 +159,7 @@ public class HomeController {
 		try
 		{
 			JSONObject ilogin = new JSONObject(uinfo);
-			String hashPassword = getHashPassword(ilogin.getString("password"));
+			String hashPassword = getHashPassword(ilogin.getString("password1"));
 			Login ue = new Login();
 			ue.setEmail(ilogin.getString("email"));
 			ue.setFirstname(ilogin.getString("firstname"));
@@ -252,6 +229,46 @@ public class HomeController {
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 			}
 			return new ResponseEntity<String>(HttpStatus.OK);
+		}
+		
+		@RequestMapping(value = "/user/model-recommendations", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+		public @ResponseBody String generateRecommendations(@RequestBody String model_selections, HttpServletRequest request, Principal principal) throws IOException {
+			
+			Gson gson = new Gson();
+			String prin = principal.getName();		
+			UsersEntity ue = userDAO.getCurrentUser(prin);
+			JSONArray all_selections = new JSONArray(model_selections);
+			
+			
+			
+			List<ItemsEntity> user_recommendations = new ArrayList<ItemsEntity>();
+			
+			List<List<String>> ls = new ArrayList<List<String>>();
+			
+			for (int i = 0; i < all_selections.length(); i++)
+			{
+				JSONArray selection = all_selections.getJSONArray(i);
+				if (selection.getInt(0) == 1)
+				{
+					ItemsEntity ie = userDAO.getItemById(selection.getInt(1));
+	
+					List<ReviewsEntity> lre = reviewsDAO.getReviewsByItem(ie.getId());
+					List<String> reviews_str = new ArrayList<String>();
+					for (ReviewsEntity re : lre)
+					{
+						String review = gson.toJson(re);
+						reviews_str.add(review);
+					}
+					String json = new Gson().toJson(ie);
+					List<String> combined_item = new ArrayList<String>();
+			        combined_item.add(json);
+					combined_item.add(reviews_str.toString());
+					ls.add(combined_item);
+				}
+			}
+
+			return ls.toString();
+			
 		}
 	
 	

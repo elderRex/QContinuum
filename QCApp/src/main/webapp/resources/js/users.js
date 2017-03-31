@@ -5,53 +5,29 @@ app.service('questionsService', function($http,$location,pathingService) {
 	
 	var user_questions;
 	var user_recommendations;
+	var model_recommendations;
 	
 	return {
 		fetchQuestions: function() { return user_questions; },
+		fetchModelRecommendations: function() { return model_recommendations; },
 		fetchRecommendations: function() { return user_recommendations; },
 		getRecommendations:     	
 	    	function () {
-			url = pathingService.getCurrentPath("user/get-recommendations");
 
-    			var result = 
-    			$http({
-				    url: url, 
-				    method: "GET"
-				 }).then(function(recommendations) { 
-					 user_recommendations = recommendations;
-//					 user_recommendations.forEach(function(occ){
-//						 
-//						 
-//						 
-//					 });
-					 // Get Reviews From This Item
-					 
-					 
-				});
-    			return result;
+			url = pathingService.getCurrentPath("user/get-recommendations");
+			var result = $.ajax({
+		    type: 'POST',
+		    url: 'http://35.184.109.108:5000/recommend/query',
+		    crossDomain: true,
+		    data: { "uid": 52},
+		    dataType: 'json',
+		    success: function(responseData, textStatus, jqXHR) {  
+		    			
+		    }
+
 			
-//			$.ajax({
-//			    type: 'POST',
-//			    url: 'http://35.184.109.108:5000/recommend/query',
-//			    crossDomain: true,
-//			    data: { "uid": 52},
-//			    dataType: 'json',
-//			    success: function(responseData, textStatus, jqXHR) {
-//			    debugger;    
-//			    	var value = responseData.someKey;
-//			    },
-//			    error: function (responseData, textStatus, errorThrown) {
-//			        alert('POST failed.');
-//			    }
-//			});
-//			$.ajax({
-//				  type: "POST",
-//				  contentType: "text/html",
-//				  url: "http://35.184.109.108:5000/recommend/query",
-//				  data: { param: 52}
-//				}).then(function(data) {
-//				   debugger
-//				});
+		});
+		    return result; 
 		    		 
 	    },
 	    getQuestions:     	
@@ -81,8 +57,20 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
 		questionsService.getRecommendations().then(function(promise) {
-			$scope.user_recommendations = questionsService.fetchRecommendations().data;
-			$scope.overlay_off = true;
+			var model_recommendations = JSON.stringify(promise);
+			$.ajax({
+			  type: "POST",
+			  contentType:'application/json',
+			  url: pathingService.getCurrentPath("user/model-recommendations"),
+			  data: model_recommendations
+			}).then(function(data) {
+				$scope.user_recommendations = JSON.parse(data);
+				$scope.$apply(function() {
+					$scope.overlay_off = true;
+					});
+				
+			});
+			
 		 });
 	}
 	

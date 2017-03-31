@@ -6,7 +6,6 @@
 <!--  Manages connection to database, and defines db entities -->
 <hibernate-configuration>
     <session-factory>
-  
         <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">qcont4156.cigcl8d9knyc.us-east-1.rds.amazonaws.com:3306/qc_db</property>

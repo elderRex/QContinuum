@@ -21,13 +21,12 @@ app.controller('homeController', ['$scope', '$http','$location','pathingService'
 	// Register New User (Customer) (Just Email)
 	$scope.register_user = function() {
 		if ($scope.registration 
-				&& ($scope.registration.selectedUsername)
 				&& $scope.registration.firstname
 				&& $scope.registration.lastname
 				&& $scope.registration.email
-				&& $scope.registration.password)
+				&& $scope.registration.password1 == $scope.registration.password2)
 		{
-			$http.post(pathingService.getCurrentPath('/new-user/register'), $scope.registration).then(function(data) {
+			$http.post(pathingService.getCurrentPath('new-user/register'), $scope.registration).then(function(data) {
 					debugger;
 				window.location.href = pathingService.getCurrentPath('user/setup');
 			}, function errorCallback(response) {

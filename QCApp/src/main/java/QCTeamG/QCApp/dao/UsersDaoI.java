@@ -104,11 +104,12 @@ public class UsersDaoI implements UsersDAO  {
 		return (List<ReviewsEntity>) oe;
 	}
 	
-	public List<ItemsEntity> getUserRecommendations(int uid) {
-		 
-		 Query cq = sessionFactory.getCurrentSession().createQuery("select u from ItemsEntity u ORDER BY rand()").setMaxResults(7);
-		 Object oe = cq.list();
-		 return (List<ItemsEntity>) oe;
+	public ItemsEntity getItemById(int iid) {
+		 //Query cq = sessionFactory.getCurrentSession().createQuery("select u from ItemsEntity u ORDER BY rand()").setMaxResults(7);
+		 Query cq = sessionFactory.getCurrentSession().createQuery("select ie from ItemsEntity ie where ie.id = :itid");
+		 cq.setParameter("itid", iid);
+		 Object item = cq.uniqueResult();
+		 return (ItemsEntity) item;
 	}
 
 

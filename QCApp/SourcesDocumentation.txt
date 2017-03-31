@@ -6,4 +6,8 @@ LogoutHandler.java, and in the MySQL database table user_roles.
 
 http://www.mkyong.com/spring-security/spring-security-form-login-using-database/
 
-2. 
+2. Our loader relied heavily on the following :
+
+https://jsfiddle.net/fs6kafsn/5/
+
+3.

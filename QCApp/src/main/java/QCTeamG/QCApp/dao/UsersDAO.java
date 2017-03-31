@@ -37,6 +37,6 @@ public interface UsersDAO
 
 	public List<ReviewsEntity> getUserQuestions(int uid);
 	
-	public List<ItemsEntity> getUserRecommendations(int uid);
+	public ItemsEntity getItemById(int iid);
     
 }
