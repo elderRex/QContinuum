@@ -12,7 +12,7 @@
 
     // list of files / patterns to load in the browser
     files: [
-      '/QCApp/src/main/webapp/resources/js/login.js' , '/QCApp/src/test/resources/checkRegistration.js'
+      'QCApp/src/main/webapp/resources/js/login.js' , 'QCApp/src/test/resources/checkRegistration.js'
       
     ],
 
