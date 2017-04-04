@@ -23,7 +23,7 @@ public class Scraper {
 	public static void main(String[] args) throws IOException, InterruptedException {
 
 		//extractReviewsHTML();
-		downloadHTMLTrainPos();
+		downloadHTMLTrainNeg();
 
 	}
 	
@@ -70,30 +70,37 @@ public class Scraper {
 	}
 	
 	// Downloads HTML from IMDB Training Set
-	public static void downloadHTMLTrainPos() throws IOException, InterruptedException
+	public static void downloadHTMLTrainNeg() throws IOException, InterruptedException
 	{
 		String uhome = System.getProperty("user.home");
 		
 		// Read file containing urls
-		File file = new File(uhome + "/Dropbox/ASE/aclImdb/train/urls_pos.txt");
+		File file = new File(uhome + "/Dropbox/ASE/aclImdb/train/urls_neg.txt");
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		
 		StringBuffer stringBuffer = new StringBuffer();
 		String url;
-		int count = 0;
+		int count = 3668;
 		
 		while ((url = bufferedReader.readLine()) != null) {
-			Response response = Jsoup.connect(url).execute();
-	        Document doc = response.parse();
-
-	        File f = new File(uhome+"/Dropbox/ASE/HTML/pos_movie_"+count+".html");
-	        count++;
-	        f.createNewFile();
-	        Random rand = new Random(); 
-	        int value = rand.nextInt(8); 
-	        TimeUnit.SECONDS.sleep(value);
-	        FileUtils.writeStringToFile(f, doc.outerHtml(), "UTF-8");
+			try
+			{
+				Response response = Jsoup.connect(url).execute();
+		        Document doc = response.parse();
+	
+		        File f = new File(uhome+"/Dropbox/ASE/HTMLNEG/negative_movie_"+count+".html");
+		        count++;
+		        f.createNewFile();
+		        Random rand = new Random(); 
+		        int value = rand.nextInt(8); 
+		        TimeUnit.SECONDS.sleep(value);
+		        FileUtils.writeStringToFile(f, doc.outerHtml(), "UTF-8");
+			}
+			catch (Exception e)
+			{
+				
+			}
 		}
 	}
 	

@@ -54,7 +54,7 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
 
 /**
- * Sample controller for going to the home page with a message
+ * Home Controller manages user sign in, authentication, and account data rendering
  */
 @Controller
 public class HomeController {
