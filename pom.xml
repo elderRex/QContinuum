@@ -257,7 +257,8 @@
 		</repository>
 
 		<repository>
-			<id>org.springframework.maven.milestone</id>
+			<id>org.springframework.
+				.milestone</id>
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 			<snapshots>
@@ -296,7 +297,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>1.7</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
