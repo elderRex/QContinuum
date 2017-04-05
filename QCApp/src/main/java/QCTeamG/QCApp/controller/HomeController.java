@@ -121,6 +121,21 @@ public class HomeController {
 		
 	}
 	
+	// Get The uid of the current user
+	@Transactional
+	@RequestMapping(value="/user/get-uid",method=RequestMethod.GET,produces={"application/xml", "application/json"})
+	public @ResponseBody String getUserId(Principal principal, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+		
+		SessionController sco = new SessionController();
+		beanFactory.autowireBean(sco);
+		Integer uid = sco.getSessionUserId(principal);
+		
+		return uid.toString();
+		
+	}
+	
 	// Redirection depending on user authentication level
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String user(Principal principal) {

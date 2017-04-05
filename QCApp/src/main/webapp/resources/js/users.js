@@ -13,22 +13,24 @@ app.service('questionsService', function($http,$location,pathingService) {
 		fetchRecommendations: function() { return user_recommendations; },
 		getRecommendations:     	
 	    	function () {
+			var result = 
+			$http.get(pathingService.getCurrentPath('user/get-uid')).then(function(uid)
+			{
+				url = pathingService.getCurrentPath("user/get-recommendations");
+				var res = $.ajax(
+				{
+				    type: 'POST',
+				    url: 'http://35.184.109.108:5000/recommend/query',
+				    crossDomain: true,
+				    data: { "uid": uid.data},
+				    dataType: 'json',
+				    success: function(responseData, textStatus, jqXHR)
+				    {  }
+				})
+				return res;
 
-			url = pathingService.getCurrentPath("user/get-recommendations");
-			var result = $.ajax({
-		    type: 'POST',
-		    url: 'http://35.184.109.108:5000/recommend/query',
-		    crossDomain: true,
-		    data: { "uid": 52},
-		    dataType: 'json',
-		    success: function(responseData, textStatus, jqXHR) {  
-		    			
-		    }
-
-			
 		});
-		    return result; 
-		    		 
+		return result    		 
 	    },
 	    getQuestions:     	
 	    	function () {
@@ -56,8 +58,11 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
+		
+		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
 			var model_recommendations = JSON.stringify(promise);
+			// Retrieve ItemsEntity for every recommendation
 			$.ajax({
 			  type: "POST",
 			  contentType:'application/json',
