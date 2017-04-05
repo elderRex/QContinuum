@@ -9,9 +9,10 @@ pathing_controller.service('pathingService', function($location) {
 			var url = request;
 			if ($location.host() == "localhost")
     			{
-    				url = "/qc/" + request;
+    				url = "qc/" + request;
     			}
-			return url;
+			
+			return "/" + url;
 		}
 	}
 });

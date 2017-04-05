@@ -49,7 +49,7 @@ public class DataController {
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		String data;
 		ItemsEntity ie = null;
-		UsersEntity ue = userDAO.getUserById(53);
+		UsersEntity ue = userDAO.getUserById(1);
 		
 		while ((data = bufferedReader.readLine()) != null) {
 			
