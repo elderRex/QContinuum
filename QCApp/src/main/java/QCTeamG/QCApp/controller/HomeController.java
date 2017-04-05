@@ -96,14 +96,6 @@ public class HomeController {
 		return "setup";
 	}
 	
-//	@Transactional
-//	@RequestMapping(value="/user/get-recommendations",method=RequestMethod.GET,produces={"text/plain"})
-//	public @ResponseBody String getRecommendations(Principal principal, HttpServletRequest request) throws IOException {
-//	     
-//		
-//		
-//	}
-	
 	@Transactional
 	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces={"application/xml", "application/json"})
 	public @ResponseBody String getUserSetupQuestions(Principal principal, HttpServletRequest request) {
@@ -129,31 +121,37 @@ public class HomeController {
 		
 	}
 	
+	// Redirection depending on user authentication level
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String user(Principal principal) {
 		
-		String prin = principal.getName();		
-		UsersEntity ue = userDAO.getCurrentUser(prin);
-        if (ue == null)
+		SessionController sco = new SessionController();
+		beanFactory.autowireBean(sco);
+		Integer uid = sco.getSessionUserId(principal);
+		
+		// If user isn't logged in, redirect to home
+        if (uid == null)
         {
         		return "home";
         }
-        else if (ue.getAccountActive() == true)
+        
+        // Check if user's account has been activated or not
+        UsersEntity ue = userDAO.getUserById(uid);
+        
+        if (ue.getAccountActive() == true)
         {
         		return "user";
         }
 		
+        // If account isn't active, redirect to user account setup
 		return "setup";
 	}
 	
 	public String getHashPassword(String password) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(password);
-
-		System.out.println(hashedPassword);
 		return hashedPassword;
 	}
-	
 	
 	@RequestMapping(value = "/new-user/register", method = RequestMethod.POST)
 	@ResponseBody
@@ -207,9 +205,11 @@ public class HomeController {
 		@ResponseBody
 		public ResponseEntity<String> createUserReviews(@RequestBody String reviews, HttpServletRequest request, Principal principal) {
 			
+			SessionController sco = new SessionController();
+			beanFactory.autowireBean(sco);
+			Integer uid = sco.getSessionUserId(principal);
+			UsersEntity ue = userDAO.getUserById(uid);
 			
-			String prin = principal.getName();		
-			UsersEntity ue = userDAO.getCurrentUser(prin);
 			JSONArray all_reviews = new JSONArray(reviews);
 			ue.setAccountActive(true);
 			userDAO.activateUser(ue);
@@ -221,7 +221,7 @@ public class HomeController {
 				{
 					UserAnswersEntity uae = new UserAnswersEntity();
 					ReviewsEntity re = reviewsDAO.getReviewById(all_reviews.getJSONObject(i).getInt("id"));
-					uae.setUid(userDAO.getCurrentUser(prin));
+					uae.setUid(ue);
 					uae.setRId(re);
 					uae.setRating(all_reviews.getJSONObject(i).getInt("rating"));
 					reviewsDAO.createUserAnswer(uae);
@@ -237,12 +237,13 @@ public class HomeController {
 		@RequestMapping(value = "/user/model-recommendations", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 		public @ResponseBody String generateRecommendations(@RequestBody String model_selections, HttpServletRequest request, Principal principal) throws IOException {
 			
+			SessionController sco = new SessionController();
+			beanFactory.autowireBean(sco);
+			Integer uid = sco.getSessionUserId(principal);
+			UsersEntity ue = userDAO.getUserById(uid);
+			
 			Gson gson = new Gson();
-			String prin = principal.getName();		
-			UsersEntity ue = userDAO.getCurrentUser(prin);
 			JSONArray all_selections = new JSONArray(model_selections);
-			
-			
 			
 			List<ItemsEntity> user_recommendations = new ArrayList<ItemsEntity>();
 			

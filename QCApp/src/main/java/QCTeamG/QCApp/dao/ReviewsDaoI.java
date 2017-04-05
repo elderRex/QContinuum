@@ -24,6 +24,11 @@ public class ReviewsDaoI implements ReviewsDAO {
 		return id;
 	}
 	
+	public Integer createReview(ReviewsEntity user_review) {
+		Integer id = (Integer) this.sessionFactory.getCurrentSession().save(user_review);
+		return id;
+	}
+	
 	public UserAnswersEntity getUserAnswerById(int uaid) {
 		  UserAnswersEntity uae = (UserAnswersEntity)sessionFactory.getCurrentSession().createQuery("from UserAnswersEntity where id = "+uaid).uniqueResult();
 		  return uae;
@@ -37,6 +42,11 @@ public class ReviewsDaoI implements ReviewsDAO {
 	public List<ReviewsEntity> getReviewsByItem(int iid) {
 		List<ReviewsEntity> iel = (List<ReviewsEntity>)sessionFactory.getCurrentSession().createQuery("from ReviewsEntity re where re.iid = "+iid).list();
 		  return iel;
+	}
+	
+	public ReviewsEntity getReviewByReviewText(String content) {
+		  ReviewsEntity ie = (ReviewsEntity)sessionFactory.getCurrentSession().createQuery("from ReviewsEntity where review_text = "+content).uniqueResult();
+		  return ie;
 	}
 	
 }

@@ -9,10 +9,14 @@ public interface ReviewsDAO {
 	
 	public Integer createUserAnswer(UserAnswersEntity user_answer);
 	
+	public Integer createReview(ReviewsEntity user_review);
+	
 	public UserAnswersEntity getUserAnswerById(int uaid);
 	
 	public ReviewsEntity getReviewById(int aid);
 	
 	public List<ReviewsEntity> getReviewsByItem(int iid);
+	
+	public ReviewsEntity getReviewByReviewText(String content);
 
 }
