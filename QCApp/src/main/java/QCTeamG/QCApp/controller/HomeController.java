@@ -238,7 +238,7 @@ public class HomeController {
 					ReviewsEntity re = reviewsDAO.getReviewById(all_reviews.getJSONObject(i).getInt("id"));
 					uae.setUid(ue);
 					uae.setRId(re);
-					uae.setRating(all_reviews.getJSONObject(i).getInt("rating"));
+					uae.setLiked(all_reviews.getJSONObject(i).getBoolean("liked"));
 					reviewsDAO.createUserAnswer(uae);
 				}
 			}

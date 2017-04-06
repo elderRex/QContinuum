@@ -34,6 +34,9 @@ public class ReviewsEntity {
     @Column(name="REVIEW_TEXT")
     private String review_text;
     
+    @Column(name="REV_KEY")
+    private String rev_key;
+    
     @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="iid",referencedColumnName="id")
     private ItemsEntity iid;
@@ -64,6 +67,14 @@ public class ReviewsEntity {
 	public void setText(String rt) {
 	  this.review_text = rt;
 	}   
+	
+	public String getRevKey() {
+		return rev_key;
+	}
+		  
+	public void setRevKey(String rk) {
+		this.rev_key = rk;
+	}  
 
 //    public Date getDate() {
 //        return date;

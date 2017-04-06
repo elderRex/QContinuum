@@ -40,24 +40,41 @@ public class DataController {
 	@Transactional
 	public ItemsEntity addItem(String title)
 	{
-		ItemsEntity ite = new ItemsEntity();
-		ite.setName(title);
-		ite.setDescription(""); // TODO Get the description of each item from IMDB API
-		ite.setType("movie");
-		ite.setWebsite("www.imdb.com");
-		itemDAO.createItem(ite);
-		return ite;
+		try
+		{
+			ItemsEntity ite = new ItemsEntity();
+			ite.setName(title);
+			ite.setDescription(""); // TODO Get the description of each item from IMDB API
+			ite.setType("movie");
+			ite.setWebsite("www.imdb.com");
+			itemDAO.createItem(ite);
+			return ite;
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return null;
 	}
 	
 	@Transactional
 	public void addReview(String review_text, String review_score, UsersEntity ue, ItemsEntity ie)
 	{
-		ReviewsEntity re = new ReviewsEntity();
-		re.setIId(ie);
-		re.setText(review_text);
-		re.setUid(ue);
-		re.setRating(Float.parseFloat(review_score));
-		reviewDAO.createReview(re);
+		try
+		{
+			ReviewsEntity re = new ReviewsEntity();
+			re.setIId(ie);
+			re.setText(review_text);
+			re.setUid(ue);
+			re.setRevKey(review_text.substring(0,600));
+			re.setRating(Float.parseFloat(review_score));
+			reviewDAO.createReview(re);
+		}
+		catch (Exception e)
+		{
+			
+		}
+
 	}
 
 	@RequestMapping(value="/items/add-to-db",method=RequestMethod.GET,produces={"application/xml", "application/json"})

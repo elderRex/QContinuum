@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import QCTeamG.QCApp.entities.ItemsEntity;
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserAnswersEntity;
-import QCTeamG.QCApp.entities.UsersEntity;
 
 @Repository
 @Transactional

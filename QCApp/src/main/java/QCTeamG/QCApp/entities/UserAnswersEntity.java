@@ -31,7 +31,7 @@ public class UserAnswersEntity {
     private UsersEntity uid;
      
     @Column(name="DOES_LIKE")
-    private Integer rating;
+    private Boolean liked;
      
     public UsersEntity getUid() {
         return uid;
@@ -41,12 +41,12 @@ public class UserAnswersEntity {
         this.uid = uid;
     }
     
-    public Integer getRating() {
-        return rating;
+    public Boolean getLiked() {
+        return liked;
     }
         
-    public void setRating(Integer rating) {
-        this.rating = rating;
+    public void setLiked(Boolean rating) {
+        this.liked = rating;
     }
    
     public Integer getId() {
