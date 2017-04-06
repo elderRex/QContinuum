@@ -21,9 +21,9 @@
  
   <beans:bean id="dataSource" name="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://qcont4156-db.cigcl8d9knyc.us-east-1.rds.amazonaws.com:3306/qc_db" />
-		<beans:property name="username" value="qc4156" />
-		<beans:property name="password" value="4156qcont!" />
+		<beans:property name="url" value="jdbc:mysql://qc.c3tf5vijhh0i.us-west-2.rds.amazonaws.com:3306/qc" />
+		<beans:property name="username" value="fmin" />
+		<beans:property name="password" value="fmin28213" />
 	</beans:bean>
 	
 	 <beans:bean id="transactionManager"

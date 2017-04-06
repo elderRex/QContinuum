@@ -29,7 +29,7 @@ public class ReviewsEntity {
     private UsersEntity uid;
      
     @Column(name="rating")
-    private Integer rating;
+    private Float rating;
     
     @Column(name="REVIEW_TEXT")
     private String review_text;
@@ -38,8 +38,8 @@ public class ReviewsEntity {
 	@JoinColumn(name="iid",referencedColumnName="id")
     private ItemsEntity iid;
  
-    @Column(name="DATETIME")
-    public Date date;
+//    @Column(name="DATETIME")
+//    public Date date;
     
     public UsersEntity getUid() {
         return uid;
@@ -49,11 +49,11 @@ public class ReviewsEntity {
         this.uid = ue;
     }
     
-    public Integer getRating() {
+    public Float getRating() {
         return rating;
     }
         
-    public void setRating(Integer rating) {
+    public void setRating(Float rating) {
         this.rating = rating;
     }
     
@@ -65,13 +65,13 @@ public class ReviewsEntity {
 	  this.review_text = rt;
 	}   
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
    
     public Integer getId() {
         return id;

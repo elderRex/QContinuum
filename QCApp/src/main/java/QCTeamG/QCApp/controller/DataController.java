@@ -36,10 +36,32 @@ public class DataController {
 	
 	@Autowired
 	ReviewsDAO reviewDAO;
-
+	
 	@Transactional
+	public ItemsEntity addItem(String title)
+	{
+		ItemsEntity ite = new ItemsEntity();
+		ite.setName(title);
+		ite.setDescription(""); // TODO Get the description of each item from IMDB API
+		ite.setType("movie");
+		ite.setWebsite("www.imdb.com");
+		itemDAO.createItem(ite);
+		return ite;
+	}
+	
+	@Transactional
+	public void addReview(String review_text, String review_score, UsersEntity ue, ItemsEntity ie)
+	{
+		ReviewsEntity re = new ReviewsEntity();
+		re.setIId(ie);
+		re.setText(review_text);
+		re.setUid(ue);
+		re.setRating(Float.parseFloat(review_score));
+		reviewDAO.createReview(re);
+	}
+
 	@RequestMapping(value="/items/add-to-db",method=RequestMethod.GET,produces={"application/xml", "application/json"})
-	public void addItemsToDb(Principal principal, HttpServletRequest request) throws NumberFormatException, IOException
+	public String addItemsToDb(Principal principal, HttpServletRequest request) throws NumberFormatException, IOException
 	{
 		
 		String uhome = System.getProperty("user.home");
@@ -48,11 +70,10 @@ public class DataController {
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		String data;
-		ItemsEntity ie = null;
-		UsersEntity ue = userDAO.getUserById(1);
+		ItemsEntity ie = new ItemsEntity();
+		UsersEntity ue = userDAO.getUserById(83);
 		
-		while ((data = bufferedReader.readLine()) != null) {
-			
+		while ((data = bufferedReader.readLine()) != null && count > 0) {
 			// If the line of text contains a title.
 			if (data.contains("-ttl-:"))
 			{
@@ -64,15 +85,8 @@ public class DataController {
 				// If the item doesn't exist, add it
 				if (ie == null)
 				{
-					ie = new ItemsEntity();
-					ie.setName(title);
-					ie.setDescription(""); // TODO Get the description of each item from IMDB API
-					ie.setType("movie");
-					ie.setWebsite("www.imdb.com");
-					itemDAO.createItem(ie);
+					ie = addItem(title);
 				}
-				
-				
 			}
 			// Line is a review
 			else if (data.contains("-rev-:"))
@@ -80,27 +94,22 @@ public class DataController {
 				String review_text = data.replace("-rev-:", "");
 				String review_score = bufferedReader.readLine();
 				ReviewsEntity re = reviewDAO.getReviewByReviewText(review_text);
+				
 				// If review doesn't exist in db, add it
 				if (re == null)
 				{
-					re = new ReviewsEntity();
-					Date dt = new Date(0);
-					re.setDate(dt);
-					re.setIId(ie);
-					re.setText(review_text);
-					re.setUid(ue);
-					re.setRating(Integer.parseInt(review_score));
-					reviewDAO.createReview(re);
+					addReview(review_text,review_score,ue,ie);
 				}
 			}
 			else
 			{
-				break;
+				continue;
 			}
 
 		}
 		
 		bufferedReader.close();
+		return "home";
 		
 	}
 

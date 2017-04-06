@@ -2,6 +2,7 @@ package QCTeamG.QCApp.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,8 +46,18 @@ public class ReviewsDaoI implements ReviewsDAO {
 	}
 	
 	public ReviewsEntity getReviewByReviewText(String content) {
-		  ReviewsEntity ie = (ReviewsEntity)sessionFactory.getCurrentSession().createQuery("from ReviewsEntity where review_text = "+content).uniqueResult();
-		  return ie;
+		  try
+		  {
+			  Query qa = sessionFactory.getCurrentSession().createQuery("from ReviewsEntity r where r.review_text like :rtext");
+			  qa.setString("rtext", content);
+			  ReviewsEntity re = (ReviewsEntity)qa.list().get(0);
+			  return re;
+		  }
+		  catch (Exception e)
+		  {
+		  }
+		  return null;
+
 	}
 	
 }

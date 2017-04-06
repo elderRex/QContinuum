@@ -1,5 +1,6 @@
 package QCTeamG.QCApp.dao;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,8 +21,18 @@ public class ItemsDaoI implements ItemsDAO {
 	}
 	
 	public ItemsEntity getItemByName(String name) {
-		  ItemsEntity ie = (ItemsEntity)sessionFactory.getCurrentSession().createQuery("from ItemsEntity where name = "+name).uniqueResult();
-		  return ie;
+		  
+		  try
+		  {
+			  Query qa = sessionFactory.getCurrentSession().createQuery("from ItemsEntity i where i.name like :iname");
+			  qa.setString("iname", name);
+			  ItemsEntity ii = (ItemsEntity)qa.list().get(0);
+			  return ii;
+		  }
+		  catch (Exception e)
+		  {
+		  }
+		  return null;
 	}
 
 }
