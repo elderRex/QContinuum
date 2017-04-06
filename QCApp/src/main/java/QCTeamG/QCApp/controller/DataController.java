@@ -73,7 +73,7 @@ public class DataController {
 		ItemsEntity ie = new ItemsEntity();
 		UsersEntity ue = userDAO.getUserById(83);
 		
-		while ((data = bufferedReader.readLine()) != null && count > 0) {
+		while ((data = bufferedReader.readLine()) != null) {
 			// If the line of text contains a title.
 			if (data.contains("-ttl-:"))
 			{
