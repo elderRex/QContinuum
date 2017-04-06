@@ -257,7 +257,8 @@
 		</repository>
 
 		<repository>
-			<id>org.springframework.maven.milestone</id>
+			<id>org.springframework.
+				.milestone</id>
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 			<snapshots>
@@ -311,6 +312,14 @@
 				<configuration>
 					<path>/${project.build.finalName}</path>
 				</configuration>
+			</plugin>
+			
+			<plugin>            
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-war-plugin</artifactId>
+  				<configuration>
+    					<webXml>QCApp/src/main/webapp/WEB-INF/web.xml</webXml>        
+  				</configuration>
 			</plugin>
 
 		</plugins>
