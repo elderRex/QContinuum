@@ -55,10 +55,10 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	$scope.user_answers = {};
 	$scope.user_recommendations = {};
 	$scope.overlay_off = false;
+	$scope.questions_answered = false;
 	
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
-		
 		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
 			var model_recommendations = JSON.stringify(promise);
@@ -106,8 +106,19 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	}
 	
 	$scope.review_liked = function(is_liked,indx) {
+		
+		if (indx == $scope.user_answers.length-1)
+		{
+				$scope.questions_answered = true;
+		}
+
 		$scope.user_answers[indx].show = false;
-		$scope.user_answers[indx+1].show = true;
+		
+		// Fails if falls outside the bounds of array
+		if (indx < $scope.user_answers.length-1)
+		{
+			$scope.user_answers[indx+1].show = true;
+		}
 		
 		if (is_liked)
 		{

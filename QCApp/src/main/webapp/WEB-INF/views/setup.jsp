@@ -27,13 +27,7 @@
 					<div class="title-div-medium">
 						<span>Please read part of the review and tell us if you like it or agree with it</span>
 					</div>
-					<div ng-show="$last">
-						<div class="button-option col-xs-4"></div>
-						<div class="button-option col-xs-4">
-							<button ng-click="submit_answers(true,$index)">Submit Answers</button>
-						</div>
-					</div>
-					<div ng-show="!$last">
+					<div ng-show="!questions_answered">
 						<div class="button-option col-xs-4"></div>
 						<div class="button-option col-xs-2">
 							<button ng-click="review_liked(true,$index)">Like</button>
@@ -44,6 +38,16 @@
 					</div>
 				</div>
 		</div>
+		<div ng-show="questions_answered" class="ctr well">
+			<div class="title-div-medium">
+				<span>You're all set! Click Submit and please wait until your recommendations are ready.</span>
+			</div>
+			<div>
+				<div class="button-option col-xs-4"></div>
+				<div class="button-option col-xs-4">
+					<button ng-click="submit_answers()">Submit Answers</button>
+				</div>
+			</div>
 	</div>
 </body>
 </html>

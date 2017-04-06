@@ -82,7 +82,7 @@ public class DataController {
 	{
 		
 		String uhome = System.getProperty("user.home");
-		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_extracted.txt");
+		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_test_extracted.txt");
 
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -110,13 +110,10 @@ public class DataController {
 			{
 				String review_text = data.replace("-rev-:", "");
 				String review_score = bufferedReader.readLine();
-				ReviewsEntity re = reviewDAO.getReviewByReviewText(review_text);
+				//ReviewsEntity re = reviewDAO.getReviewByReviewText(review_text);
 				
 				// If review doesn't exist in db, add it
-				if (re == null)
-				{
-					addReview(review_text,review_score,ue,ie);
-				}
+				addReview(review_text,review_score,ue,ie);
 			}
 			else
 			{
