@@ -285,6 +285,7 @@
 
 	<build>
 		<finalName>qc</finalName>
+		<sourceDirectory>QCApp/src/main/java/QCTeamG/QCApp</sourceDirectory>
 		<plugins>
 
 			<!-- Facilitates downloading source and javadoc in Eclipse -->
