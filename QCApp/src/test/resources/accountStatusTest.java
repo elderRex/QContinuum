@@ -23,12 +23,19 @@ public class accountStatusTest {
 		assertEquals(expectedstatus,actualstatus);
   
   }
-/*	
+	
   @Test
 	public void testAccountSuccessfulSetUp() {
+		HomeController hc = new HomeController();
+		Integer uid = 0;
+		String actualstatus = hc.user(uid);
+		String expectedstatus = "user";
+		assertEquals(expectedstatus,actualstatus);
+		
   
   }
 	
+/*
   @Test
 	public void testAccountFailedSetUp() {
   
