@@ -19,7 +19,7 @@ public class createUserTest {
 	@Test
 	public void testSuccessfulCreateUser() {
 	HttpServletRequest request = mock(HttpServletRequest.class);
-	String uinfo = "{'firstname':'test', 'lastname': 'user', 'email': 'test@columbia.edu', 'password1': '123', 'password2': '123'}";
+	String uinfo = "{'firstname':'first', 'lastname': 'last', 'email': 'firstlast@columbia.edu', 'password1': '123456', 'password2': '123456'}";
 	HomeController hc = new HomeController();
 	ResponseEntity<String> expected = new ResponseEntity<String>(HttpStatus.OK);
 	ResponseEntity<String> actual = hc.createUser(uinfo, request);
