@@ -17,8 +17,9 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 
-public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
-       
+public class logoutTest {
+	
+	
        @Autowired
 	     UsersDAO userDAO;
        
@@ -30,6 +31,9 @@ public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
 		Authentication authentication = mock(Authentication.class);
 		LogoutHandler lh = new LogoutHandler(defaultTargetURL);
 	     	lh.onLogoutSuccess(request, response, authentication);
-		assertTrue(true);
+		boolean actualcondition = lh.getCondition();
+		boolean expectedcondition = false;
+		assertEquals(expectedcondition,actualcondition);
 	}
+	
 }
