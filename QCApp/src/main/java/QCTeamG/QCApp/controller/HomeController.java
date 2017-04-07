@@ -139,7 +139,7 @@ public class HomeController {
 	
 	// Redirection depending on user authentication level
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String user(Integer uid) {
+	public String user(Integer uid, UsersEntity ue) {
 		
 		//SessionController sco = new SessionController();
 		//beanFactory.autowireBean(sco);
@@ -152,7 +152,7 @@ public class HomeController {
         }
         
         // Check if user's account has been activated or not
-        UsersEntity ue = userDAO.getUserById(uid);
+        //UsersEntity ue = userDAO.getUserById(uid);
         
         if (ue.getAccountActive() == true)
         {
