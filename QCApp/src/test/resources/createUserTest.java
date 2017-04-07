@@ -1,6 +1,6 @@
 
 package QCTeamG.QCApp.controller;
-package QCTeamG.QCApp.entities;
+
 
 
 import static org.junit.Assert.*;
