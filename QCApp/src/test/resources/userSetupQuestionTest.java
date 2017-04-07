@@ -29,7 +29,22 @@ public class userSetupQuestionTest {
               HttpServletRequest request = mock(HttpServletRequest.class);
               //Authentication authentication = mock(Authentication.class);
               String email = "test1@gmail.com";
-              UsersEntity us = userDAO.getCurrentUser(email);	
+              int id = 0;
+              String firstname = "test1";
+              String lastname = "test1";
+              String password = "123456";
+              boolean enabled = true;
+              boolean account_active = true;
+              //UsersEntity us = userDAO.getCurrentUser(email);
+              UsersEntity us = new UsersEntity();
+              us.setEmail(email);
+              us.setFirstname(firstname);
+              us.setLastname(lastname);
+              us.setId(id);
+              us.setPassword(password);
+              us.setEnabled(enabled);
+              us.setAccountActive(account_active);
+              
               Authentication authentication = new UsernamePasswordAuthenticationToken(us, null, AuthorityUtils.createAuthorityList("ROLE_USER"));
               SecurityContextHolder.getContext().setAuthentication(authentication);
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
