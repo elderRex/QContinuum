@@ -10,6 +10,7 @@ import java.io.*;
 import javax.servlet.http.*;
 import java.security.Principal;
 
+import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +27,9 @@ public class userSetupQuestionTest {
        
        @Test
        public void testSuccessfulQuestion() {
-              HttpServletRequest request = mock(HttpServletRequest.class);
+              //HttpServletRequest request = mock(HttpServletRequest.class);
               //Authentication authentication = mock(Authentication.class);
+              MockHttpServletRequest request = new MockHttpServletRequest();
               String email = "test1@gmail.com";
               int id = 0;
               String firstname = "test1";
@@ -47,11 +49,11 @@ public class userSetupQuestionTest {
               
               Authentication authentication = new UsernamePasswordAuthenticationToken(us, null, AuthorityUtils.createAuthorityList("ROLE_USER"));
               SecurityContextHolder.getContext().setAuthentication(authentication);
-              if(!authentication.isAuthenticated()) System.out.println("haven't been authenticated !!!!!!!!!!!");
-              else System.out.println("authenticated successfully !!!!!!!!!!!");
+              //if(!authentication.isAuthenticated()) System.out.println("haven't been authenticated !!!!!!!!!!!");
+              //else System.out.println("authenticated successfully !!!!!!!!!!!");
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-              //Principal principal = request.getUserPrincipal();
-              Principal principal = authentication.getName();
+              Principal principal = request.getUserPrincipal();
+              //Principal principal = (Principal)authentication.getName();
               //Principal principal = (Principal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               System.out.println(principal);
               HomeController hc = new HomeController();
