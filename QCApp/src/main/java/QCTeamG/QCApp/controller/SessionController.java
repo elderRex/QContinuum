@@ -38,6 +38,7 @@ public class SessionController {
 	}
 	
 	public Integer getSessionUserId(Principal principal) {
+		if(principal == null) return null;
 		Integer uid = 0;
 		try 
 		{
