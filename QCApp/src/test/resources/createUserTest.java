@@ -14,8 +14,7 @@ public class createUserTest {
 	public void testSuccessfulCreateUser() {
 	HttpServletRequest request = mock(HttpServletRequest.class); 
 	String uinfo = "123";
-	HomeController hc = new HomeController();
-	assertEquals(HttpStatus.OK, hc.createUser(uinfo, request));
+	assertEquals(HttpStatus.OK, HomeController.createUser(uinfo, request));
 	}
 	
 	/*
