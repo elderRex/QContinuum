@@ -24,7 +24,7 @@ public class logoutTest {
 	     UsersDAO userDAO;
        
        @Test
-	public void testSuccessfulLogout(){
+	public void testSuccessfulLogout() throws IOException, ServletException {
 		String defaultTargetURL = "qc/logout";
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpServletResponse response = mock(HttpServletResponse.class);
