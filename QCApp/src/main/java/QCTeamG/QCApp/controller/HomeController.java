@@ -186,10 +186,10 @@ public class HomeController {
 			//if(ue.getLastname() == null) System.out.println("failure to get lastname"); //
 			
 			ue.setPassword(hashPassword);
-			System.out.println(Registration(ue));
+			Registration(ue);
 			String email = ue.getEmail();		
 			UsersEntity us = userDAO.getCurrentUser(email);
-			
+			System.out.println(email);		
 			Authentication authentication = new UsernamePasswordAuthenticationToken(us, null,
 				    AuthorityUtils.createAuthorityList("ROLE_USER"));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
