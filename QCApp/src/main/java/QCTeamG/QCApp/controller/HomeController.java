@@ -187,9 +187,9 @@ public class HomeController {
 			
 			ue.setPassword(hashPassword);
 			Registration(ue);
+			System.out.println(hashPassword);
 			String email = ue.getEmail();		
-			UsersEntity us = userDAO.getCurrentUser(email);
-			System.out.println(email);		
+			UsersEntity us = userDAO.getCurrentUser(email);		
 			Authentication authentication = new UsernamePasswordAuthenticationToken(us, null,
 				    AuthorityUtils.createAuthorityList("ROLE_USER"));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
