@@ -257,6 +257,13 @@
   		<artifactId>surefire-junit4</artifactId>
   		<version>2.17</version>
     </dependency>
+		
+	<dependency>
+  	<groupId>org.mockito</groupId>
+  	<artifactId>mockito-android</artifactId>
+  	<version>2.7.21</version>
+  	<type>pom</type>
+	</dependency>
  
 		
 		 
