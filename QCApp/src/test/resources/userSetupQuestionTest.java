@@ -20,7 +20,8 @@ public class userSetupQuestionTest {
        @Test
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
-              //Authentication authentication = mock(Authentication.class);
+              Authentication authentication = mock(Authentication.class);
+              SecurityContextHolder.getContext().setAuthentication(authentication);
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               principal = request.getUserPrincipal();
               HomeController hc = new HomeController();
