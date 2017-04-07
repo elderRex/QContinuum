@@ -209,7 +209,7 @@ public class HomeController {
 			ue.setFirstname(login.getFirstname());
 			ue.setLastname(login.getLastname());
 			ue.setPassword(login.getPassword());
-			System.out.println(login.getPassword);
+			System.out.println(login.getPassword());
 			UserRolesEntity ure = new UserRolesEntity();
 			ure.setEmail(login.getEmail());
 			ure.setRole("ROLE_USER");
