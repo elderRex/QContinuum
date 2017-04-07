@@ -139,11 +139,11 @@ public class HomeController {
 	
 	// Redirection depending on user authentication level
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String user(Principal principal) {
+	public String user(int uid) {
 		
-		SessionController sco = new SessionController();
-		beanFactory.autowireBean(sco);
-		Integer uid = sco.getSessionUserId(principal);
+		//SessionController sco = new SessionController();
+		//beanFactory.autowireBean(sco);
+		//Integer uid = sco.getSessionUserId(principal);
 		
 		// If user isn't logged in, redirect to home
         if (uid == null)
