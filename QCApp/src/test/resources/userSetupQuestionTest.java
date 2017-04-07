@@ -27,9 +27,9 @@ public class userSetupQuestionTest {
        
        @Test
        public void testSuccessfulQuestion() {
-              //HttpServletRequest request = mock(HttpServletRequest.class);
+              HttpServletRequest request = mock(HttpServletRequest.class);
               //Authentication authentication = mock(Authentication.class);
-              MockHttpServletRequest request = new MockHttpServletRequest();
+              //MockHttpServletRequest request = new MockHttpServletRequest();
               String email = "test1@gmail.com";
               int id = 0;
               String firstname = "test1";
@@ -52,12 +52,13 @@ public class userSetupQuestionTest {
               //if(!authentication.isAuthenticated()) System.out.println("haven't been authenticated !!!!!!!!!!!");
               //else System.out.println("authenticated successfully !!!!!!!!!!!");
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-              Principal principal = request.getUserPrincipal();
+              //Principal principal = request.getUserPrincipal();
               //Principal principal = (Principal)authentication.getName();
-              //Principal principal = (Principal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-              System.out.println(principal);
+              Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+              System.out.println(principal.toString());
+              Principal p = (Principal) principal;
               HomeController hc = new HomeController();
-              assertNotNull(hc.getUserSetupQuestions(principal, request));
+              assertNotNull(hc.getUserSetupQuestions(p, request));
               
        
        }
