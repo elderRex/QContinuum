@@ -31,6 +31,9 @@ public class ReviewsEntity {
     @Column(name="rating")
     private Float rating;
     
+    @Column(name="is_training")
+    private Boolean is_training;
+    
     @Column(name="REVIEW_TEXT")
     private String review_text;
     
@@ -50,6 +53,14 @@ public class ReviewsEntity {
     
     public void setUid(UsersEntity ue) {
         this.uid = ue;
+    }
+    
+    public Boolean getIsTraining() {
+        return is_training;
+    }
+        
+    public void setIsTraining(Boolean it) {
+        this.is_training = it;
     }
     
     public Float getRating() {

@@ -24,14 +24,16 @@ public class Scraper {
 
 		//downloadHTMLTestPos();
 		//downloadHTMLTrainPos();
-		extractPosTestReviewsHTML();
+		
+		extractTrainPosReviewsHTML();
+		//downloadHTMLTrainPos();
 
 	}
 	
-	public static void extractPosTestReviewsHTML() throws IOException
+	public static void extractTrainPosReviewsHTML() throws IOException
 	{
 		String uhome = System.getProperty("user.home");
-		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_test_extracted.txt");
+		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_train_extracted.txt");
 		
 		FileWriter fw = new FileWriter(file);
 		BufferedWriter bw = new BufferedWriter(fw);
@@ -39,16 +41,15 @@ public class Scraper {
 		int count = 0;
 		long prevFileSize = 0;
 		
-		for (int i = 1350; i >= 0; i--)
+		for (int i = 1389; i >= 0; i--)
 		{
 			try
 			{
 			
-				String pg_ref = uhome+"/Dropbox/ASE/HTML_test_pos/pos_movie_"+i+".html";
+				String pg_ref = uhome+"/Dropbox/ASE/HTML_train_pos/pos_movie_"+i+".html";
 	
 				File fl = new File(pg_ref);
 	
-				
 				Document doc = Jsoup.parse(fl, "UTF-8");
 				Elements metaTags = doc.getElementsByTag("meta");
 				

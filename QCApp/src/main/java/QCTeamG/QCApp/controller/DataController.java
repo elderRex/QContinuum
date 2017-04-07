@@ -66,6 +66,7 @@ public class DataController {
 			re.setIId(ie);
 			re.setText(review_text);
 			re.setUid(ue);
+			re.setIsTraining(true);
 			re.setRevKey(review_text.substring(0,600));
 			re.setRating(Float.parseFloat(review_score));
 			reviewDAO.createReview(re);
@@ -82,13 +83,13 @@ public class DataController {
 	{
 		
 		String uhome = System.getProperty("user.home");
-		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_test_extracted.txt");
+		File file = new File(uhome + "/Dropbox/ASE/Extracted/neg_train_extracted.txt");
 
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		String data;
 		ItemsEntity ie = new ItemsEntity();
-		UsersEntity ue = userDAO.getUserById(83);
+		UsersEntity ue = userDAO.getUserById(0);
 		
 		while ((data = bufferedReader.readLine()) != null) {
 			// If the line of text contains a title.
