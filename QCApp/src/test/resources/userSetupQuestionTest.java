@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 
 import org.junit.Test;
 
-public class userSetupQuestionTester {
+public class userSetupQuestionTest {
        private Principal principal;
        
        @Test
