@@ -22,6 +22,7 @@ import org.junit.Test;
 
 public class userSetupQuestionTest {
        private Principal principal;
+       UsersDAO userDAO;
        
        @Test
        public void testSuccessfulQuestion() {
