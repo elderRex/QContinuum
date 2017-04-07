@@ -100,7 +100,7 @@ public class HomeController {
 	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces={"application/xml", "application/json"})
 	public @ResponseBody String getUserSetupQuestions(Principal principal, HttpServletRequest request) {
 		if (principal == null)
-			return null
+			return null;
 		HttpSession session = request.getSession(true);
 		
 		SessionController sco = new SessionController();
