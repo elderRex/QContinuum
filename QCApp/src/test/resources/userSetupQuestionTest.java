@@ -17,7 +17,11 @@ public class userSetupQuestionTest {
        @Test
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
-              principal = request.getUserPrincipal();
+              Authentication authentication = Mockito.mock(Authentication.class);
+              SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+              Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+              SecurityContextHolder.setContext(securityContext);
+              principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               HomeController hc = new HomeController();
               System.out.println(principal);
               assertNotNull(hc.getUserSetupQuestions(principal, request));
@@ -28,7 +32,11 @@ public class userSetupQuestionTest {
        @Test
        public void testFailedQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
-              principal = request.getUserPrincipal();
+              Authentication authentication = Mockito.mock(Authentication.class);
+              SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+              Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+              SecurityContextHolder.setContext(securityContext);
+              principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               HomeController hc = new HomeController();
               System.out.println(principal);
               assertNull(hc.getUserSetupQuestions(principal, request));
