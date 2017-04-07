@@ -19,8 +19,14 @@ public class createUserTest {
 	
 	@Test
 	public void testSuccessfulCreateUser() {
-	HttpServletRequest request = mock(HttpServletRequest.class); 
-	String uinfo = "{“firstname”:”test”, “lastname”: “user”, “email”: “test@columbia.edu”, “password1”: “123”, “password2”: “123”}";
+	HttpServletRequest request = mock(HttpServletRequest.class);
+	JSONObject json = new JSONObject();
+	json.put("firstname", "test");
+	json.put("lastname", "user");
+	json.put("email", "test@columbia.edu");
+	json.put("password1", "123");
+	json.put("password2", "123");
+	String uinfo = json.toString();
 	HomeController hc = new HomeController();
 	ResponseEntity<String> expected = new ResponseEntity<String>(HttpStatus.OK);
 	ResponseEntity<String> actual = hc.createUser(uinfo, request);
