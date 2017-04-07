@@ -58,7 +58,7 @@ public class userSetupQuestionTest {
               //System.out.println(principal.toString());
               //Principal p = (Principal) principal;
               HomeController hc = new HomeController();
-              assertNotNull(hc.getUserSetupQuestions(null, request));
+              assertNull(hc.getUserSetupQuestions(null, request));
               
        
        }
