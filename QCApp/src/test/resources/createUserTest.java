@@ -1,11 +1,13 @@
 
 package QCTeamG.QCApp.controller;
+package QCTeamG.QCApp.entities;
 
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import java.io.*;
 import javax.servlet.http.*;
+import org.springframework.http.ResponseEntity;
 
 import org.junit.Test;
 
