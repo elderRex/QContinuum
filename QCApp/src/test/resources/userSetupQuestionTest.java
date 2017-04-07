@@ -54,9 +54,9 @@ public class userSetupQuestionTest {
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               //Principal principal = request.getUserPrincipal();
               //Principal principal = (Principal)authentication.getName();
-              Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-              System.out.println(principal.toString());
-              Principal p = (Principal) principal;
+              //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+              //System.out.println(principal.toString());
+              //Principal p = (Principal) principal;
               HomeController hc = new HomeController();
               assertNotNull(hc.getUserSetupQuestions(null, request));
               
