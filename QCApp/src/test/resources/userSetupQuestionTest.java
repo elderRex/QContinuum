@@ -28,7 +28,7 @@ public class userSetupQuestionTest {
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
               //Authentication authentication = mock(Authentication.class);
-              String email = "firstlast@columbia.edu";
+              String email = "tesdata@gmail.com";
               UsersEntity us = userDAO.getCurrentUser(email);	
               Authentication authentication = new UsernamePasswordAuthenticationToken(us, null, AuthorityUtils.createAuthorityList("ROLE_USER"));
               SecurityContextHolder.getContext().setAuthentication(authentication);
