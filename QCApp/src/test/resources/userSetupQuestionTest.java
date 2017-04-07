@@ -8,6 +8,9 @@ import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.*;
 
 import org.junit.Test;
 
