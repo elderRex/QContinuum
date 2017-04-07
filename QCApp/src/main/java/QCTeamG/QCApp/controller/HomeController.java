@@ -175,7 +175,6 @@ public class HomeController {
 		try
 		{
 			JSONObject ilogin = new JSONObject(uinfo);
-			System.out.println(ilogin.getString("email"));
 			String hashPassword = getHashPassword(ilogin.getString("password1"));
 			//if(hashPassword.length() == 0)System.out.println("failure to get password"); // 
 			Login ue = new Login();
@@ -187,7 +186,7 @@ public class HomeController {
 			//if(ue.getLastname() == null) System.out.println("failure to get lastname"); //
 			
 			ue.setPassword(hashPassword);
-			Registration(ue);
+			System.out.println(Registration(ue));
 			String email = ue.getEmail();		
 			UsersEntity us = userDAO.getCurrentUser(email);
 			
