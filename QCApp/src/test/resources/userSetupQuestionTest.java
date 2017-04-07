@@ -1,6 +1,7 @@
 package QCTeamG.QCApp.controller;
-package QCTeamG.QCApp.entities.UsersEntity;
+//package QCTeamG.QCApp.entities.UsersEntity;
 
+import QCTeamG.QCApp.entities.UsersEntity;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
