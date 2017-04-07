@@ -24,7 +24,7 @@ public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
        @Test
        public void testSuccessfulLogout() {
               String defaultTargetURL = "test";
-              LogoutHandler(String defaultTargetURL);
+              LogoutHandler(defaultTargetURL);
               assertEquals(this.getDefaultTargetUrl(), "test");
        }
 }
