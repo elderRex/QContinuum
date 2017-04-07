@@ -213,9 +213,9 @@ public class HomeController {
 			ure.setEmail(login.getEmail());
 			ure.setRole("ROLE_USER");
 			ue.setEnabled(true);
-			
+			System.out.println(login.getEmail());
 			Integer uid = userDAO.createUser(ue);
-			System.out.println(uid);
+			
 			userDAO.setUserRole(ure);
 			 
 		}
