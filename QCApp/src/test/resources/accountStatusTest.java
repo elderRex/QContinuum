@@ -18,7 +18,7 @@ public class accountStatusTest {
 		HomeController hc = new HomeController();
 		Principal principal = null;
 		String actualstatus = hc.user(principal);
-		String expectedstauts = "home";
+		String expectedstatus = "home";
 		assertEquals(expectedstatus,actualstatus);
   
   }
