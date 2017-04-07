@@ -293,7 +293,7 @@
 	<build>
 		<finalName>qc</finalName>
 		<sourceDirectory>QCApp/src/main/java/QCTeamG/QCApp</sourceDirectory>
-		<testSourceDirectory>QCApp/src/test</testSourceDirectory>
+		<testSourceDirectory>QCApp/src/test/resources</testSourceDirectory>
 		<plugins>
 
 			<!-- Facilitates downloading source and javadoc in Eclipse -->
