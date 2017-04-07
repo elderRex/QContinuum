@@ -30,7 +30,7 @@ public class LogoutHandler extends SimpleUrlLogoutSuccessHandler {
 		   super.onLogoutSuccess(request, response, authentication);
 		   condition = false;
 		   } catch (Exception e){
-			   e.printStackTrace();
+			   //e.printStackTrace();
 			   condition = true;
 		   }
 	   }
