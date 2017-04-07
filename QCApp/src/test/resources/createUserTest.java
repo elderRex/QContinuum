@@ -18,7 +18,7 @@ public class createUserTest {
 	HttpServletRequest request = mock(HttpServletRequest.class); 
 	String uinfo = "{“firstname”:”test”, “lastname”: “user”, “email”: “test@columbia.edu”, “password1”: “123”, “password2”: “123”}";
 	HomeController hc = new HomeController();
-	assertEquals("200", hc.createUser(uinfo, request));
+	assertEquals(new ResponseEntity<String>(HttpStatus.BAD_REQUEST), hc.createUser(uinfo, request));
 	}
 	
 	/*
