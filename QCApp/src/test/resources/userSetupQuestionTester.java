@@ -1,7 +1,5 @@
 package QCTeamG.QCApp.controller;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import java.io.*;
@@ -20,7 +18,8 @@ public class userSetupQuestionTester {
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
               HomeController hc = new HomeController();
-              String result = hc. getUserSetupQuestions(principal, request);
+              String result = hc.getUserSetupQuestions(principal, request);
+              assertNotNull(result);
               
        
        }
