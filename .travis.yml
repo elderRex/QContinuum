@@ -1,2 +1,2 @@
 language: java
-script: "mvn verify -fn,--fail-never"
+script: "mvn verify -fn"
