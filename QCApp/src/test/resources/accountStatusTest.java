@@ -14,6 +14,22 @@ public class accountStatusTest {
   
   @Test
 	public void testAccountFailedLogin() {
+		HomeController hc = new HomeController();
+		int uid = 0;
+		String actualstatus = hc.user(uid);
+		String expectedstauts = "home";
+		assertEquals(expectedstatus,actualstatus);
   
   }
+/*	
+  @Test
+	public void testAccountSuccessfulSetUp() {
+  
+  }
+	
+  @Test
+	public void testAccountFailedSetUp() {
+  
+  }
+  */
 }
