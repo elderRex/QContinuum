@@ -14,6 +14,7 @@ import QCTeamG.QCApp.dao.UsersDAO;
 
 import org.junit.Test;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 
 public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
