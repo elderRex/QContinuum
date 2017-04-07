@@ -31,18 +31,37 @@ public class accountStatusTest {
 		assertEquals(expectedstatus,actualstatus);
   
   }
-	/*
+	
   @Test
 	public void testAccountSuccessfulSetUp() {
+		
+		UsersEntity us = new UsersEntity();
+		
+		String email = "testabc@gmail.com";
+              	int id = 2;
+              	String firstname = "test1";
+              	String lastname = "test1";
+              	String password = "123456";
+              	boolean enabled = true;
+              	boolean account_active = true;
+            
+              	us.setEmail(email);
+              	us.setFirstname(firstname);
+              	us.setLastname(lastname);
+              	us.setId(id);
+              	us.setPassword(password);
+              	us.setEnabled(enabled);
+              	us.setAccountActive(account_active);
+		
 		HomeController hc = new HomeController();
 		Integer uid = 0;
-		String actualstatus = hc.user(uid);
+		String actualstatus = hc.user(uid,us);
 		String expectedstatus = "user";
 		assertEquals(expectedstatus,actualstatus);
 		
   
   }
-  */
+  
 	
 /*
   @Test
