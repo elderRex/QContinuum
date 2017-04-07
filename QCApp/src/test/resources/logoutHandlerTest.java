@@ -14,7 +14,7 @@ import QCTeamG.QCApp.dao.UsersDAO;
 
 import org.junit.Test;
 
-/*
+
 
 public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
        
@@ -28,4 +28,3 @@ public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
               assertEquals(this.getDefaultTargetUrl(), "test");
        }
 }
-*/
