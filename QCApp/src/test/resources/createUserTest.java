@@ -24,9 +24,7 @@ public class createUserTest {
 	HomeController hc = new HomeController();
 	ResponseEntity<String> expected = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 	ResponseEntity<String> actual = hc.createUser(uinfo, request);
-	boolean condition = false;
-	if((expected.toString()).equals(actual.toString())) condition = true;
-	assertTrue(condition);
+	assertEquals(expected.toString(),actual.toString());
 	}
 	
 	/*
