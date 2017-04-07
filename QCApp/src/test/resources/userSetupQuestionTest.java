@@ -17,6 +17,7 @@ public class userSetupQuestionTest {
        @Test
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
+              principal = request.getUserPrincipal();
               HomeController hc = new HomeController();
               assertNotNull(hc.getUserSetupQuestions(principal, request));
               
@@ -26,6 +27,7 @@ public class userSetupQuestionTest {
        @Test
        public void testFailedQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
+              principal = request.getUserPrincipal();
               HomeController hc = new HomeController();
               assertNull(hc.getUserSetupQuestions(principal, request));
               
