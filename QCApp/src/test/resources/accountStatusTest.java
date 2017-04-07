@@ -15,8 +15,8 @@ public class accountStatusTest {
   @Test
 	public void testAccountFailedLogin() {
 		HomeController hc = new HomeController();
-		int uid = 0;
-		String actualstatus = hc.user(uid);
+		Principal principal = null;
+		String actualstatus = hc.user(principal);
 		String expectedstauts = "home";
 		assertEquals(expectedstatus,actualstatus);
   
