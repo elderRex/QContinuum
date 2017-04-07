@@ -1,4 +1,5 @@
 package QCTeamG.QCApp.controller;
+package QCTeamG.QCApp.entities;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -8,6 +9,7 @@ import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.*;
@@ -20,12 +22,15 @@ public class userSetupQuestionTest {
        @Test
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
-              Authentication authentication = mock(Authentication.class);
+              //Authentication authentication = mock(Authentication.class);
+              String email = "firstlast@columbia.edu";
+              UsersEntity us = userDAO.getCurrentUser(email);	
+              Authentication authentication = new UsernamePasswordAuthenticationToken(us, null, AuthorityUtils.createAuthorityList("ROLE_USER"));
               SecurityContextHolder.getContext().setAuthentication(authentication);
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               principal = request.getUserPrincipal();
-              HomeController hc = new HomeController();
               System.out.println(principal);
+              HomeController hc = new HomeController();
               assertNotNull(hc.getUserSetupQuestions(principal, request));
               
        
