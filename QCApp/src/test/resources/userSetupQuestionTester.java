@@ -18,7 +18,10 @@ public class userSetupQuestionTester {
        
        @Test
        public void testSuccessfulQuestion() {
+              HttpServletRequest request = mock(HttpServletRequest.class);
               HomeController hc = new HomeController();
+              String result = hc. getUserSetupQuestions(principal, request);
+              
        
        }
 }
