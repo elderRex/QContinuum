@@ -21,9 +21,6 @@ public class userSetupQuestionTest {
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
               Authentication authentication = mock(Authentication.class);
-              SecurityContext securityContext = mock(SecurityContext.class);
-              Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-              SecurityContextHolder.setContext(securityContext);
               principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               HomeController hc = new HomeController();
               System.out.println(principal);
