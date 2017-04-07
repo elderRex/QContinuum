@@ -186,7 +186,6 @@ public class HomeController {
 			//if(ue.getLastname() == null) System.out.println("failure to get lastname"); //
 			
 			ue.setPassword(hashPassword);
-			System.out.println(hashPassword);
 			Registration(ue);
 			String email = ue.getEmail();		
 			UsersEntity us = userDAO.getCurrentUser(email);		
@@ -210,6 +209,7 @@ public class HomeController {
 			ue.setFirstname(login.getFirstname());
 			ue.setLastname(login.getLastname());
 			ue.setPassword(login.getPassword());
+			System.out.println(login.getPassword);
 			UserRolesEntity ure = new UserRolesEntity();
 			ure.setEmail(login.getEmail());
 			ure.setRole("ROLE_USER");
