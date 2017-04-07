@@ -50,7 +50,8 @@ public class userSetupQuestionTest {
               if(!authentication.isAuthenticated()) System.out.println("haven't been authenticated !!!!!!!!!!!");
               else System.out.println("authenticated successfully !!!!!!!!!!!");
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-              Principal principal = request.getUserPrincipal();
+              //Principal principal = request.getUserPrincipal();
+              Principal principal = (Principal)authentication.getName();
               //Principal principal = (Principal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               System.out.println(principal);
               HomeController hc = new HomeController();
