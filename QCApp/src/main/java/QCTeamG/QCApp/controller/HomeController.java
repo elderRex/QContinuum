@@ -175,15 +175,16 @@ public class HomeController {
 		try
 		{
 			JSONObject ilogin = new JSONObject(uinfo);
+			System.out.println(ilogin.getString("email"));
 			String hashPassword = getHashPassword(ilogin.getString("password1"));
-			if(hashPassword.length() == 0)System.out.println("failure to get password"); // 
+			//if(hashPassword.length() == 0)System.out.println("failure to get password"); // 
 			Login ue = new Login();
 			ue.setEmail(ilogin.getString("email"));
-			if(ue.getEmail() == null) System.out.println("failure to get email"); // 
+			//if(ue.getEmail() == null) System.out.println("failure to get email"); // 
 			ue.setFirstname(ilogin.getString("firstname"));
-			if(ue.getFirstname() == null) System.out.println("failure to get firstname"); //
+			//if(ue.getFirstname() == null) System.out.println("failure to get firstname"); //
 			ue.setLastname(ilogin.getString("lastname"));
-			if(ue.getLastname() == null) System.out.println("failure to get lastname"); //
+			//if(ue.getLastname() == null) System.out.println("failure to get lastname"); //
 			
 			ue.setPassword(hashPassword);
 			Registration(ue);
