@@ -21,7 +21,7 @@ import org.springframework.security.*;
 import org.junit.Test;
 
 public class userSetupQuestionTest {
-       private Principal principal;
+       //private Principal principal;
        UsersDAO userDAO;
        
        @Test
@@ -50,7 +50,8 @@ public class userSetupQuestionTest {
               if(!authentication.isAuthenticated()) System.out.println("haven't been authenticated !!!!!!!!!!!");
               else System.out.println("authenticated successfully !!!!!!!!!!!");
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-              principal = request.getUserPrincipal();
+              //principal = request.getUserPrincipal();
+              Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               System.out.println(principal);
               HomeController hc = new HomeController();
               assertNotNull(hc.getUserSetupQuestions(principal, request));
