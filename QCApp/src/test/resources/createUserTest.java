@@ -23,7 +23,7 @@ public class createUserTest {
 	String uinfo = "{“firstname”:”test”, “lastname”: “user”, “email”: “test@columbia.edu”, “password1”: “123”, “password2”: “123”}";
 	HomeController hc = new HomeController();
 	ResponseEntity<String> wrong = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-	assertEquals(wrong, hc.createUser(uinfo, request));
+	assertEquals( hc.createUser(uinfo, request),wrong);
 	}
 	
 	/*
