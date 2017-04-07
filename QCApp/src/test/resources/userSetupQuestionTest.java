@@ -19,6 +19,7 @@ public class userSetupQuestionTest {
               HttpServletRequest request = mock(HttpServletRequest.class);
               principal = request.getUserPrincipal();
               HomeController hc = new HomeController();
+              System.out.println(principal);
               assertNotNull(hc.getUserSetupQuestions(principal, request));
               
        
@@ -29,6 +30,7 @@ public class userSetupQuestionTest {
               HttpServletRequest request = mock(HttpServletRequest.class);
               principal = request.getUserPrincipal();
               HomeController hc = new HomeController();
+              System.out.println(principal);
               assertNull(hc.getUserSetupQuestions(principal, request));
               
        
