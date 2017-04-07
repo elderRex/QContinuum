@@ -175,7 +175,9 @@ public class HomeController {
 		try
 		{
 			JSONObject ilogin = new JSONObject(uinfo);
+			if(ilgoin.length() == 0) System.out.println("failure to create json"); //
 			String hashPassword = getHashPassword(ilogin.getString("password1"));
+			if(hashPassword.length() == 0)System.out.println("failure to get password"); // 
 			Login ue = new Login();
 			ue.setEmail(ilogin.getString("email"));
 			ue.setFirstname(ilogin.getString("firstname"));
