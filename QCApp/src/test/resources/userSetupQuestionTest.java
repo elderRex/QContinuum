@@ -46,6 +46,8 @@ public class userSetupQuestionTest {
               us.setAccountActive(account_active);
               
               Authentication authentication = new UsernamePasswordAuthenticationToken(us, null, AuthorityUtils.createAuthorityList("ROLE_USER"));
+              if(!authentication.isAuthenticated()) System.out.println("haven't been authenticated !!!!!!!!!!!");
+              else System.out.println("authenticated successfully !!!!!!!!!!!");
               SecurityContextHolder.getContext().setAuthentication(authentication);
               //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
               principal = request.getUserPrincipal();
