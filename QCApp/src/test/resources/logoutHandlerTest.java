@@ -23,6 +23,7 @@ public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
 	     UsersDAO userDAO;
        
        @Test
+	public void testSuccessfulLogout(){
 		String defaultTargetURL = "qc/logout";
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
@@ -30,4 +31,5 @@ public class logoutHandlerTest extends SimpleUrlLogoutSuccessHandler {
 		LogoutHandler lh = new LogoutHandler(defaultTargetURL);
 	     	lh.onLogoutSuccess(request, response, authentication);
 		assertTrue(true);
+	}
 }
