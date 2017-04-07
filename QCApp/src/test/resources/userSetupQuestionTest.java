@@ -20,8 +20,9 @@ public class userSetupQuestionTest {
        @Test
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
-              Authentication authentication = mock(Authentication.class);
-              principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+              //Authentication authentication = mock(Authentication.class);
+              //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+              principal.getUserPrincipal();
               HomeController hc = new HomeController();
               System.out.println(principal);
               assertNotNull(hc.getUserSetupQuestions(principal, request));
