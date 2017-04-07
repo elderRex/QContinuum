@@ -36,4 +36,17 @@ public class logoutTest {
 		assertEquals(expectedcondition,actualcondition);
 	}
 	
+	@Test
+	public void testFailedLogout() throws IOException, ServletException {
+		//String defaultTargetURL = "/qc/logout";
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpServletResponse response = mock(HttpServletResponse.class);
+		Authentication authentication = mock(Authentication.class);
+		LogoutHandler lh = new LogoutHandler();
+	     	lh.onLogoutSuccess(request, response, authentication);
+		boolean actualcondition = lh.getCondition();
+		boolean expectedcondition = true;
+		assertEquals(expectedcondition,actualcondition);
+	}
+	
 }
