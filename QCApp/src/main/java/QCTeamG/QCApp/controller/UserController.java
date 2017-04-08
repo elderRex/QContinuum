@@ -53,7 +53,7 @@ public class UserController {
 	}
 	
 	@Transactional
-	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces={"application/xml", "application/json"})
+	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
 	public @ResponseBody String getUserSetupQuestions(Principal principal, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession(true);
@@ -151,7 +151,7 @@ public class UserController {
 			return new ResponseEntity<String>(HttpStatus.OK);
 		}
 		
-		@RequestMapping(value = "/user/model-recommendations", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+		@RequestMapping(value = "/user/model-recommendations", method = RequestMethod.POST, headers = {"Content-type=application/json"},produces="text/plain;charset=UTF-8")
 		public @ResponseBody String generateRecommendations(@RequestBody String model_selections, HttpServletRequest request, Principal principal) throws IOException {
 			
 			SessionController sco = new SessionController();

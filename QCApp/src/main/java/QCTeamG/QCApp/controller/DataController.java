@@ -83,7 +83,7 @@ public class DataController {
 	{
 		
 		String uhome = System.getProperty("user.home");
-		File file = new File(uhome + "/Dropbox/ASE/Extracted/neg_train_extracted.txt");
+		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_train_extracted.txt");
 
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);

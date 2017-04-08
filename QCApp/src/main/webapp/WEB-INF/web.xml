@@ -19,6 +19,14 @@
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
   </filter>
+  
+  <!--  Ensure that UTF-8 is used -->
+  <jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+	</jsp-config>
    
   <!--  Redirect On Session Timeout -->
   <listener>

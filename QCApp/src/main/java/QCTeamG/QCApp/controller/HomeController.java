@@ -1,11 +1,6 @@
 package QCTeamG.QCApp.controller;
 
 
-import QCTeamG.QCApp.dao.ReviewsDAO;
-import QCTeamG.QCApp.dao.UsersDAO;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

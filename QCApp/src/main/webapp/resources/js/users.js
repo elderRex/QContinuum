@@ -42,6 +42,7 @@ app.service('questionsService', function($http,$location,pathingService) {
 					    url: url, 
 					    method: "GET"
 					 }).then(function(questions) { 
+						 debugger;
 						 user_questions = questions; 
 					});
 	    		return result;
