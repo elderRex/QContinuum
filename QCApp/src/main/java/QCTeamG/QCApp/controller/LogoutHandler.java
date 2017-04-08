@@ -16,6 +16,8 @@ public class LogoutHandler extends SimpleUrlLogoutSuccessHandler {
 
 	   @Autowired
 	   UsersDAO userDAO;
+	   
+	   boolean condition = true;
 	
 	   // Just for setting the default target URL
 	   public LogoutHandler(String defaultTargetURL) {
@@ -24,6 +26,16 @@ public class LogoutHandler extends SimpleUrlLogoutSuccessHandler {
 
 	   @Override
 	   public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		   try{	
 		   super.onLogoutSuccess(request, response, authentication);
+		   condition = false;
+		   } catch (Exception e){
+			   //e.printStackTrace();
+			   condition = true;
+		   }
+	   }
+	
+	   public boolean getCondition(){
+		   return condition;
 	   }
 	}
