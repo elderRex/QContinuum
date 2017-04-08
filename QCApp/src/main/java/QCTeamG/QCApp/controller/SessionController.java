@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
@@ -14,27 +16,30 @@ import QCTeamG.QCApp.dao.UsersDAO;
 import QCTeamG.QCApp.entities.UsersEntity;
 
 @Controller
+@SessionAttributes("userEmail")
 public class SessionController {
 	
 	@Autowired
 	UsersDAO userDAO;
 	
+	@Transactional
 	public void setSession(HttpServletRequest httpServletRequest) {
+		
+		HttpSession session = httpServletRequest.getSession();
+		UsersEntity ue = null;
 		
 		try {
 
-			HttpSession session = httpServletRequest.getSession();
-	        UsersEntity ue = (UsersEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			session.setAttribute("userProfile", ue);
+	        ue = (UsersEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			session.setAttribute("userEmail", ue);
 		}
 		catch (Exception e)
 		{
-			
-			HttpSession session = httpServletRequest.getSession();
 	        User cu = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	        UsersEntity ue = userDAO.getUserByUsername(cu.getUsername());
-			session.setAttribute("userProfile", ue);
+	        String email = cu.getUsername();
+	        ue = userDAO.getUserByEmail(email);
 		}
+		session.setAttribute("userEmail", ue);
 	}
 	
 	public Integer getSessionUserId(Principal principal) {

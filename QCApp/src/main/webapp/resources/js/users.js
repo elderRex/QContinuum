@@ -25,7 +25,9 @@ app.service('questionsService', function($http,$location,pathingService) {
 				    data: { "uid": uid.data},
 				    dataType: 'json',
 				    success: function(responseData, textStatus, jqXHR)
-				    {  }
+				    { 
+				    		debugger
+				    }
 				})
 				return res;
 
@@ -42,7 +44,6 @@ app.service('questionsService', function($http,$location,pathingService) {
 					    url: url, 
 					    method: "GET"
 					 }).then(function(questions) { 
-						 debugger;
 						 user_questions = questions; 
 					});
 	    		return result;
@@ -63,6 +64,7 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
 			var model_recommendations = JSON.stringify(promise);
+			debugger
 			// Retrieve ItemsEntity for every recommendation
 			$.ajax({
 			  type: "POST",

@@ -4,6 +4,7 @@
 	<div>
 		<div class="col-xs-10 nav-col">
 			QCApp
+			<div>${userEmail.getEmail()}</div>
 		</div>
 		<div class="col-xs-2 nav-col">
 					<security:authorize access="hasRole('ROLE_USER')">

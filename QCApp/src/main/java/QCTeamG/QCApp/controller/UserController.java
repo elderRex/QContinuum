@@ -21,13 +21,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -35,6 +38,7 @@ import com.google.gson.Gson;
  * User Controller manages account data rendering
  */
 @Controller
+@SessionAttributes("userEmail")
 public class UserController {
 	
 	private @Autowired AutowireCapableBeanFactory beanFactory;
@@ -45,11 +49,24 @@ public class UserController {
 	@Autowired
 	ReviewsDAO reviewsDAO;
 
-
+	@ModelAttribute("userEmail")
 	@RequestMapping(value = "user/setup", method = RequestMethod.GET)
-	public String setup() {
+	public ModelAndView setup(HttpServletRequest request) {
 		
-		return "setup";
+		SessionController sco = new SessionController();
+		beanFactory.autowireBean(sco);
+		sco.setSession(request);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("setup");
+		return mav;
+	}
+	
+	@RequestMapping(value = "user/account", method = RequestMethod.GET)
+	public String account(HttpServletRequest request) {
+		SessionController sco = new SessionController();
+		beanFactory.autowireBean(sco);
+		sco.setSession(request);
+		return "account";
 	}
 	
 	@Transactional
@@ -94,10 +111,11 @@ public class UserController {
 	
 	// Redirection depending on user authentication level
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String user(Principal principal) {
+	public String user(Principal principal, HttpServletRequest request) {
 		
 		SessionController sco = new SessionController();
 		beanFactory.autowireBean(sco);
+		sco.setSession(request);
 		Integer uid = sco.getSessionUserId(principal);
 		
 		// If user isn't logged in, redirect to home
