@@ -26,7 +26,6 @@ app.service('questionsService', function($http,$location,pathingService) {
 				    dataType: 'json',
 				    success: function(responseData, textStatus, jqXHR)
 				    { 
-				    		debugger
 				    }
 				})
 				return res;
