@@ -1,4 +1,4 @@
-var app = angular.module('home', ['pathing_controller']);
+var app = angular.module('app', ['pathing_controller']);
 
 //Retrieve questions from the db
 app.service('questionsService', function($http,$location,pathingService) {

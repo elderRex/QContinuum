@@ -5,10 +5,10 @@
 <jsp:include page="partials/head.jsp"/>
 <head>
 
-	<title>Find Stuff</title>
+	<title>Recommendations</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/users.js" />"> </script>
 </head>
-<body ng-app="home" ng-controller="userController" ng-init="user_init()">
+<body ng-app="app" ng-controller="userController" ng-init="user_init()">
 	<div class="overlay" ng-hide="overlay_off">
 		<div class="loader">Loading...</div>
 	</div>

@@ -10,10 +10,12 @@
 <body ng-app="home" ng-controller="homeController" ng-init="load()">
 	<nav class="navigation navbar-fixed-top">
 		<div>
-			<div class="col-xs-6 nav-col">
-			QCApp
-		</div>
-		<div class="col-xs-6"></div>
+			<div class="col-xs-2 nav-col">
+				QCApp
+			</div>
+			<div class="col-xs-4">
+				<div class="error-message">${auth_failed}</div>
+			</div>
 			<jsp:include page="partials/login.jsp"/>
 		</div>			
 	</nav>

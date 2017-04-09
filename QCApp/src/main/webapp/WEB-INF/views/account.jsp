@@ -6,15 +6,31 @@
 <head>
 
 	<title>Your Account</title>
-	<script type="text/javascript" src="<c:url value="/resources/js/users.js" />"> </script>
+	<script type="text/javascript" src="<c:url value="/resources/js/accounts.js" />"> </script>
 </head>
-<body ng-app="home" ng-controller="userController" ng-init="overlay_off=true">
+<body ng-app="app" ng-controller="accountsController" ng-init="overlay_off=true">
 	<div class="overlay" ng-hide="overlay_off">
 		<div class="loader">Loading...</div>
 	</div>
 	<jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
-		
+		<div class="centered-box w-50 h-500">
+			<div class="title-div-medium" style="text-align: center;">
+				<span>Your Account Details</span>
+			</div>
+			<div class="item-elem">
+				<span>Name : </span>
+				<span style="font-weight: none; color : grey;">${userEmail.getFirstname()} ${userEmail.getLastname()}</span>
+			</div>
+			<div class="item-elem">
+				<span>Email: </span>
+				<span style="font-weight: none; color : grey;">${userEmail.getEmail()}</span>
+			</div>
+				<div class="item-elem">
+				<span>Name : </span>
+				<span style="font-weight: none; color : grey;">${userEmail.getFirstname()} ${userEmail.getLastname()}</span>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

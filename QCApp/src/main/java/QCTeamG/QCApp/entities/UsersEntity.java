@@ -24,6 +24,9 @@ public class UsersEntity {
     @Column(name="LASTNAME")
     private String lastname;
     
+    @Column(name="REC_STRENGTH")
+    private Integer rec_strength;
+    
     @Column(name="ENABLED")
     private boolean enabled;
     
@@ -45,6 +48,14 @@ public class UsersEntity {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public Integer getRecStrength() {
+        return rec_strength;
+    }
+    
+    public void setRecStrength(Integer strength) {
+        this.rec_strength = strength;
     }
     
 //    public String getUserName() {

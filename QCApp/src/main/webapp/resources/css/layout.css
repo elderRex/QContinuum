@@ -94,6 +94,12 @@ h-100
     display: block;
     overflow: hidden
 }
+.error-message
+{
+	color: red;
+	font-size : 14px;
+	margin-top : 12px;
+}
 .item-values
 {
 	font-weight: none;

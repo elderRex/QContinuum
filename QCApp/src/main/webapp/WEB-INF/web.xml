@@ -27,6 +27,15 @@
         <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
 	</jsp-config>
+	
+	 <error-page>
+	<error-code>404</error-code>
+	<location>/errors/not-found</location>
+  </error-page>
+  <error-page>
+	<error-code>500</error-code>
+	<location>/errors/something-went-wrong</location>
+  </error-page>
    
   <!--  Redirect On Session Timeout -->
   <listener>

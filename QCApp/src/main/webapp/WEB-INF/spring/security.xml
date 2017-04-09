@@ -7,7 +7,7 @@
   
 	<!--  Authentication -->
   <http use-expressions="true">  
-  <access-denied-handler error-page="/errors/404" />
+  <access-denied-handler error-page="/error_404" />
   <intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
   <form-login login-page='/login' username-parameter="email"  
    password-parameter="password" default-target-url="/user"  
