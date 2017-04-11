@@ -23,10 +23,10 @@ public class accountStatusTest {
               	UsersEntity ue = new UsersEntity();
               
 		
-		HomeController hc = new HomeController();
+		UserController uc = new UserController();
 		//Principal principal = null;
 		Integer uid = null;
-		String actualstatus = hc.user(uid,ue);
+		String actualstatus = uc.user(uid,ue);
 		String expectedstatus = "home";
 		assertEquals(expectedstatus,actualstatus);
   
@@ -53,9 +53,9 @@ public class accountStatusTest {
               	us.setEnabled(enabled);
               	us.setAccountActive(account_active);
 		
-		HomeController hc = new HomeController();
+		UserController uc = new UserController();
 		Integer uid = 0;
-		String actualstatus = hc.user(uid,us);
+		String actualstatus = uc.user(uid,us);
 		String expectedstatus = "user";
 		assertEquals(expectedstatus,actualstatus);
 		
@@ -84,9 +84,9 @@ public class accountStatusTest {
               	us.setEnabled(enabled);
               	us.setAccountActive(account_active);
 		
-		HomeController hc = new HomeController();
+		UserController hc = new UserController();
 		Integer uid = 0;
-		String actualstatus = hc.user(uid,us);
+		String actualstatus = uc.user(uid,us);
 		String expectedstatus = "setup";
 		assertEquals(expectedstatus,actualstatus);
   
