@@ -28,11 +28,19 @@ public class UsersDaoI implements UsersDAO  {
 		return id;
 	}
 	
+	@Transactional
 	public void modifyUserProfile(UsersEntity ue)
 	{
 		if (ue != null) 
 		{
-      		this.sessionFactory.getCurrentSession().update(ue);
+      		try
+      		{
+      			this.sessionFactory.getCurrentSession().update(ue);
+      		}
+      		catch (Exception e)
+      		{
+      			System.out.println("exception" + e);
+      		}
 		}
 	}
 	
@@ -136,8 +144,16 @@ public class UsersDaoI implements UsersDAO  {
 	 * 
 	 */
 
+	@Transactional
 	public void createNewTimestamp(Timestamp time_stamp, ResetPasswordEntity password_reset_entity) {
-		this.sessionFactory.getCurrentSession().save(password_reset_entity);
+		try
+		{
+			this.sessionFactory.getCurrentSession().save(password_reset_entity);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
 	}
 	
 	public void updateTimestamp(String rankey)

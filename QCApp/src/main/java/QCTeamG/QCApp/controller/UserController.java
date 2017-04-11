@@ -235,8 +235,10 @@ public class UserController {
 			
 		}
 		
+		
 		@RequestMapping(value = "/user/update-account", method = RequestMethod.POST, produces="text/plain;charset=UTF-8")
-		public void updateProfile(@RequestBody String rec_setting, HttpServletRequest request, Principal principal) throws IOException {
+		public @ResponseBody String updateProfile(@RequestBody String rec_setting, HttpServletRequest request, Principal principal)
+		{
 			
 			JSONObject json = new JSONObject(rec_setting);
 			
@@ -248,7 +250,7 @@ public class UserController {
 			ue.setRecStrength(json.getInt("value"));
 			
 			userDAO.modifyUserProfile(ue);
-			
+			return "";
 		}
 		
 	

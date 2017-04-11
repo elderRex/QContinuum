@@ -4,13 +4,16 @@
 <html>
 <jsp:include page="partials/head.jsp"/>
 <head>
-
 	<title>Your Account</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/accounts.js" />"> </script>
 </head>
 <body ng-app="app" ng-controller="accountsController" ng-init="overlay_off=true">
 	<div class="overlay" ng-hide="overlay_off">
 		<div class="loader">Loading...</div>
+	</div>
+	<div class="update-overlay" ng-hide="hide_update">
+		<div class="loader">Loading...</div>
+		<div class="updated-message">Profile Updating</div>
 	</div>
 	<jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
@@ -28,7 +31,7 @@
 			</div>
 			<div class="item-elem">
 				<span>Return recommendations that are : </span>
-				<span style="font-weight: none; color : grey;">${userEmail.getRecStrengthString()}</span>
+				<span id="recStrength" style="font-weight: none; color : grey;">${userEmail.getRecStrengthString()}</span>
 			</div>
 			<div class="item-elem">
 					<span>Quality of recommendations : </span>

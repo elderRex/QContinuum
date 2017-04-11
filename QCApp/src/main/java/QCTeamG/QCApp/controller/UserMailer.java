@@ -8,12 +8,7 @@ import javax.mail.MessagingException;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import com.sendgrid.SendGrid;
-import com.sendgrid.Content;
-import com.sendgrid.Email;
-import com.sendgrid.Mail;
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
+import com.sendgrid.SendGridException;
 
 public class UserMailer
 {
@@ -24,43 +19,45 @@ public class UserMailer
 //	}
 	
 
-	public void changePasswordRequest(String email, String firstname, String lastname, String url) throws MessagingException, IOException {
+	public void changePasswordRequest(String emaila, String firstname, String lastname, String url) throws MessagingException, IOException {
 		
-		Email from = new Email("f.minakov@gmail.com");
-		String subject = "Password Change";
-		Email to = new Email(email);
-		Content content = new Content("text/html", 
-				  "<html>"
-				    		+ "<body>"						
-							+ "<div style='font-size: 12px'>"
-								+ "<div>"
-									+ " Dear " + firstname + ","
-								+ "</div>"
-								
-								+ "<br>"
-								
-								+ "<div>"
-								+ "You requested a password reset. Please click on the link below to reset your password."
-								+ "</div>"
-								+ "<br>"
-								+ "<div style='font-size: 16px;margin-top: 30px;'><a href='" + url + "'>" + url + "</a></div>"
-				    			+ "</div>"							
-		    				+ "<body"
-		    			+ "</html>");
-		Mail mail = new Mail(from, subject, to, content);
-		
-		SendGrid sg = new SendGrid(System.getenv("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"));
-		Request request = new Request();
-		try {
-		  request.method = Method.POST;
-		  request.endpoint = "mail/send";
-		  request.body = mail.build();
-		  Response response = sg.api(request);
-		} 
-		catch (IOException ex)
-		{
-		  throw ex;
+		SendGrid sg = new SendGrid(System.getenv("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"));
+		 
+		SendGrid.Email email = new SendGrid.Email();
+
+	    email.addTo(emaila);
+	    email.setFrom("f.minakov@gmail.com");
+	    email.setSubject("Password Change");
+	    
+	    email.setHtml("<html>"
+	    		+ "<body>"						
+				+ "<div style='font-size: 12px'>"
+					+ "<div>"
+						+ " Dear " + firstname + ","
+					+ "</div>"
+					
+					+ "<br>"
+					
+					+ "<div>"
+					+ "You requested a password reset. Please click on the link below to reset your password."
+					+ "</div>"
+					+ "<br>"
+					+ "<div style='font-size: 16px;margin-top: 30px;'><a href='" + url + "'>" + url + "</a></div>"
+	    			+ "</div>"							
+				+ "<body"
+			+ "</html>");
+
+	    try {
+			SendGrid.Response response = sg.send(email);
+		} catch (SendGridException e) {
+			e.printStackTrace();
 		}
+		
+		
+		
+		
+	
+		
 
 	}
  

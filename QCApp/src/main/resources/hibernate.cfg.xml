@@ -21,6 +21,7 @@
    		<mapping class="QCTeamG.QCApp.entities.ItemsEntity" />
    		<mapping class="QCTeamG.QCApp.entities.ReviewsEntity" />
    		<mapping class="QCTeamG.QCApp.entities.UserAnswersEntity" />
+   		<mapping class="QCTeamG.QCApp.entities.ResetPasswordEntity" />
      
     </session-factory>
 </hibernate-configuration>

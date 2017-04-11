@@ -112,6 +112,32 @@ Loader courtesy of
 https://jsfiddle.net/fs6kafsn/5/
 
 */
+.update-overlay
+{
+	position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: rgba(255,255,255,.5);
+    border-top: 1px solid #f4f4f4;
+    z-index:9999;
+    color:grey;
+}
+
+.updated-message
+{
+	z-index: 99999;
+	font-size: 20px;
+	color: black;
+	background: white;
+	position:absolute;
+    top:45%;
+    left:45%;
+    right:0;
+    bottom:0;
+}
+
 .overlay {
     position:absolute;
     top:0;

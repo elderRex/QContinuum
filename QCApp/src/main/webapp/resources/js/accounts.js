@@ -17,13 +17,17 @@ app.controller('accountsController', ['$scope', '$http','$location','pathingServ
 	
 	$scope.rec_strength_options = get_rec_options();
 	
+	$scope.hide_update = true;
+	
 	// Update User Profile
 	$scope.modify_profile = function() {
+		$("#recStrength").html($scope.rec_strength["text"]);
+		$scope.hide_update = false;
 		var req = $http.post(
 				(pathingService.getCurrentPath('user/update-account')), $scope.rec_strength)
 				req.success(function(data)
 				{
-					window.location.href = pathingService.getCurrentPath("user/account");
+						$scope.hide_update = true; 		
 				}
 		);
 	}
