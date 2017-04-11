@@ -25,16 +25,16 @@ public class userSetupQuestionTest {
        //private Principal principal;
        UsersDAO userDAO;
        
-       /*
+       
        @Test
        public void testSuccessfulQuestion() {
               HttpServletRequest request = mock(HttpServletRequest.class);
               
-              HomeController hc = new HomeController();
+              UserController uc = new UserController();
               assertNull(hc.getUserSetupQuestions(null, request));
               
        
-       }*/
+       }
        
        
        @Test
