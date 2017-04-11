@@ -51,50 +51,71 @@ app.service('questionsService', function($http,$location,pathingService) {
 
 	});
 
+/* Detect a scroll and invokes load of additional recs */
+app.directive("scroll", function ($window) {
+    return function(scope, element, attrs) {
+        angular.element($window).bind("scroll", function() {
+        		if($(window).scrollTop() + $(window).height() > $(document).height() - 1600) {
+        			if (scope.model_ids.length > 0)
+        				scope.invoke_next_load();
+        		}
+        });
+    };
+});
+
+
 app.controller('userController', ['$scope', '$http','$location','pathingService','questionsService', function($scope, $http, $location,pathingService,questionsService) {	
 
 	$scope.user_answers = {};
 	$scope.user_recommendations = [];
 	$scope.overlay_off = false;
 	$scope.questions_answered = false;
+	$scope.slice_size = 0;
+	$scope.slice_index = 0;
+	$scope.model_ids = [];
 	
-	$scope.render_recs = function(promise)
+	$scope.invoke_next_load = function()
+	{
+		$scope.slice_index += 1;
+		var sub_arr = $scope.model_ids.slice($scope.slice_index*$scope.slice_size,$scope.slice_size+($scope.slice_index*$scope.slice_size));
+		var model_recommendations = JSON.stringify(sub_arr);
+		$scope.get_rec_slice(model_recommendations);
+	}
+	
+	$scope.get_rec_slice = function(recs)
 	{
 		
+		// Retrieve ItemsEntity for every recommendation
+		$.ajax({
+		  type: "POST",
+		  contentType:'application/json',
+		  url: pathingService.getCurrentPath("user/model-recommendations"),
+		  data: recs
+		}).then(function(data) {
+			$scope.$apply(function() {
+				var parsed = JSON.parse(data);
+				for(var iii = 0; iii < parsed.length; iii++)
+				{
+					$scope.user_recommendations.push(parsed[iii]);
+				}
+				
+				
+				$scope.overlay_off = true;
+				});
+			
+		});
 	}
 	
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
 		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
-			$scope.render_recs(promise);
-			var slice_size = Math.round(promise.length/50);
-			var ii = 0;
-			while (ii < slice_size)
-			{
-				var sub_arr = promise.slice(ii*slice_size,slice_size+(ii*slice_size));
-				var model_recommendations = JSON.stringify(sub_arr);
-				// Retrieve ItemsEntity for every recommendation
-				$.ajax({
-				  type: "POST",
-				  contentType:'application/json',
-				  url: pathingService.getCurrentPath("user/model-recommendations"),
-				  data: model_recommendations
-				}).then(function(data) {
-					$scope.$apply(function() {
-						var parsed = JSON.parse(data);
-						for(var iii = 0; iii < parsed.length; iii++)
-						{
-							$scope.user_recommendations.push(parsed[iii]);
-						}
-						
-						
-						$scope.overlay_off = true;
-						});
-					
-				});
-				ii++;
-			}
+			$scope.model_ids = promise;
+			$scope.slice_size = Math.round(promise.length/50);
+
+			var sub_arr = $scope.model_ids.slice(0,$scope.slice_size);
+			var model_recommendations = JSON.stringify(sub_arr);
+			$scope.get_rec_slice(model_recommendations);
 		 });
 	}
 	

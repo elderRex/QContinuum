@@ -4,7 +4,6 @@
 <html>
 <jsp:include page="partials/head.jsp"/>
 <head>
-
 	<title>Recommendations</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/users.js" />"> </script>
 </head>
@@ -12,7 +11,7 @@
 	<div class="loader"></div>
 	<div class="overlay-text">Almost there, we need about 3 minutes to get you good results...</div>
 </div>
-<body ng-app="app" ng-controller="userController" ng-init="user_init()">
+<body ng-app="app" scroll ng-controller="userController" ng-init="user_init()">
 	<jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
 		<div ng-repeat="r in user_recommendations" class="centered-box w-50 h-500">
