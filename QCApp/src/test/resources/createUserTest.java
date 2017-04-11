@@ -29,9 +29,9 @@ public class createUserTest {
 	public void testFailedCreateUser() {
 		HttpServletRequest request = mock(HttpServletRequest.class); 
 		String uinfo = "{“firstname”:”test”, “lastname”: “user”, “email”: “test@columbia.edu”, “password1”: “123”, “password2”: “123”}";
-		HomeController hc = new HomeController();
+		RegistrationController rc = new RegistrationController();
 		ResponseEntity<String> expected = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-		ResponseEntity<String> actual = hc.createUser(uinfo, request);
+		ResponseEntity<String> actual = rc.createUser(uinfo, request);
 		assertEquals(expected.toString(),actual.toString());
 	}
 	
