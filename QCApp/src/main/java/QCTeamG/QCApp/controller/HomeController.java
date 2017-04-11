@@ -150,7 +150,7 @@ public class HomeController {
 			String authentication_token = "http://sample-env-1.jevngzemth.us-west-2.elasticbeanstalk.com/" + token;
 			
 			userDAO.createNewTimestamp(time_stamp, pre);
-			UserMailer um = (UserMailer)appContext.getBean("userMailer");
+			UserMail um = (UserMail)appContext.getBean("userMail");
 			um.changePasswordRequest(email,us.getFirstname(),us.getLastname(), authentication_token);
 		
 		}

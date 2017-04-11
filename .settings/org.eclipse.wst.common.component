@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="qc">
+        <wb-resource deploy-path="/WEB-INF/web.xml" source-path="/QCApp/src/main/webapp/WEB-INF/web.xml"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/QCApp/src/main/java/QCTeamG/QCApp"/>
+        <property name="context-root" value="qc"/>
+        <property name="java-output-path" value="/qc/target/classes"/>
+    </wb-module>
+</project-modules>
