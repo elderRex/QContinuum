@@ -50,6 +50,27 @@ public class UsersEntity {
         this.email = email;
     }
     
+    public String getRecStrengthString() {
+    	
+    		String ret = "";
+    		
+    		switch (getRecStrength()) {
+	        case 0:
+	            ret = "All Recommendations";
+	            break;
+	                
+	        case 1:
+	        	 	ret = "Items we think you might like";
+	            break;
+	                     
+	        case 2:
+	        	 ret = "Only our most recommended";
+	            break;
+	    }
+    		
+    		return ret;
+    }
+    
     public Integer getRecStrength() {
         return rec_strength;
     }
@@ -57,14 +78,6 @@ public class UsersEntity {
     public void setRecStrength(Integer strength) {
         this.rec_strength = strength;
     }
-    
-//    public String getUserName() {
-//        return username;
-//    }
-//        
-//    public void setUserName(String un) {
-//        this.username = un;
-//    }
     
 	public String getPassword() {
 	  return password;

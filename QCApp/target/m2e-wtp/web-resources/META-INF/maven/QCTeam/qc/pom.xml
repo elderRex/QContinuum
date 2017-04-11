@@ -24,6 +24,14 @@
 		  <artifactId>jsoup</artifactId>
 		  <version>1.10.2</version>
 		</dependency>
+		
+		<!--  Email -->
+		<!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
+		<dependency>
+		    <groupId>com.sendgrid</groupId>
+		    <artifactId>sendgrid-java</artifactId>
+		    <version>3.2.0</version>
+		</dependency>
 
 		<!-- Bean Validation Dependencies -->
 

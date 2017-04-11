@@ -14,6 +14,7 @@
 <body ng-app="app" ng-controller="userController" ng-init="user_setup_init()">
 <div class="overlay" ng-hide="overlay_off">
 	<div class="loader">Loading...</div>
+	<!-- <div class="overlay-text">Recording your answers...</div> -->
 </div>
 <jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
@@ -38,7 +39,7 @@
 						</div>
 					</div>
 				</div>
-		</div>
+			</div>
 		<div ng-show="questions_answered" class="ctr well">
 			<div class="title-div-medium">
 				<span>You're all set! Click Submit and please wait until your recommendations are ready.</span>
@@ -50,5 +51,6 @@
 				</div>
 			</div>
 	</div>
+</div>
 </body>
 </html>

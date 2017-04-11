@@ -26,9 +26,20 @@
 				<span>Email: </span>
 				<span style="font-weight: none; color : grey;">${userEmail.getEmail()}</span>
 			</div>
-				<div class="item-elem">
-				<span>Name : </span>
-				<span style="font-weight: none; color : grey;">${userEmail.getFirstname()} ${userEmail.getLastname()}</span>
+			<div class="item-elem">
+				<span>Return recommendations that are : </span>
+				<span style="font-weight: none; color : grey;">${userEmail.getRecStrengthString()}</span>
+			</div>
+			<div class="item-elem">
+					<span>Quality of recommendations : </span>
+					<select class="form-control" id="rec_str" ng-model="rec_strength" ng-options="item as item.text for item in rec_strength_options">
+						<option value=""> Select Which Recommendations We Should Display </option>
+					</select>
+			</div>
+			<div class="item-elem" style="margin-top : 40px;">
+				<button ng-click="modify_profile()">
+       					Save Options
+     			</button>
 			</div>
 		</div>
 	</div>

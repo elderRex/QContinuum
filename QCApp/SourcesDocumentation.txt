@@ -10,4 +10,6 @@ http://www.mkyong.com/spring-security/spring-security-form-login-using-database/
 
 https://jsfiddle.net/fs6kafsn/5/
 
-3.
+3. Our mail sender relies heavily on the following tutorial for handling email with Spring
+
+https://www.mkyong.com/spring/spring-sending-e-mail-with-attachment/

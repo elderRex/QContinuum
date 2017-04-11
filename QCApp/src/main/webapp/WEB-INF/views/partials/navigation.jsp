@@ -8,19 +8,20 @@
 		<div class="col-xs-2 nav-col">
 			<div>Welcome ${userEmail.getFirstname()}!</div>
 		</div>
-		<div class="col-xs-3 nav-col">
-					
-					<security:authorize access="hasRole('ROLE_USER')">
-	   					<a href="<c:url value="/user/account" />" >
-	   						<span class="glyphicon glyphicon-user"></span>
-						</a>
-					</security:authorize>
-					<span style="margin-right: 10px"></span>
-					<security:authorize access="hasRole('ROLE_USER')">
-		   				<a href="<c:url value="logout" />" >
-							Logout
-						</a>
-					</security:authorize>
+		<div class="col-xs-3 nav-col">					
+			<security:authorize access="hasRole('ROLE_USER')">
+				<a href="<c:url value="/user" />" >
+  						<span class="glyphicon glyphicon-film"></span>
+				</a>
+				<span style="margin-right: 20px"></span>
+				<a href="<c:url value="/user/account" />" >
+  						<span class="glyphicon glyphicon-user"></span>
+				</a>
+				<span style="margin-right: 20px"></span>
+   				<a href="<c:url value="/logout" />" >
+					Logout
+				</a>
+			</security:authorize>
 		</div>
 	</div>			
 </nav>

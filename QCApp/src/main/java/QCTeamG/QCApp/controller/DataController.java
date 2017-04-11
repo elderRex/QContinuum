@@ -9,6 +9,8 @@ import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Controller;
@@ -37,6 +39,9 @@ public class DataController {
 	@Autowired
 	ReviewsDAO reviewDAO;
 	
+	@Autowired
+    private SessionFactory sessionFactory;
+	
 	@Transactional
 	public ItemsEntity addItem(String title)
 	{
@@ -58,7 +63,7 @@ public class DataController {
 	}
 	
 	@Transactional
-	public void addReview(String review_text, String review_score, UsersEntity ue, ItemsEntity ie)
+	public void addReview(String review_text, String review_score, UsersEntity ue, ItemsEntity ie, Session sesh)
 	{
 		try
 		{
@@ -66,10 +71,10 @@ public class DataController {
 			re.setIId(ie);
 			re.setText(review_text);
 			re.setUid(ue);
-			re.setIsTraining(true);
+			re.setIsTraining(false);
 			re.setRevKey(review_text.substring(0,600));
 			re.setRating(Float.parseFloat(review_score));
-			reviewDAO.createReview(re);
+			reviewDAO.createReview(re, sesh);
 		}
 		catch (Exception e)
 		{
@@ -82,8 +87,10 @@ public class DataController {
 	public String addItemsToDb(Principal principal, HttpServletRequest request) throws NumberFormatException, IOException
 	{
 		
+		Session sesh = sessionFactory.getCurrentSession();
+		
 		String uhome = System.getProperty("user.home");
-		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_train_extracted.txt");
+		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_test_extracted.txt");
 
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -114,7 +121,7 @@ public class DataController {
 				//ReviewsEntity re = reviewDAO.getReviewByReviewText(review_text);
 				
 				// If review doesn't exist in db, add it
-				addReview(review_text,review_score,ue,ie);
+				addReview(review_text,review_score,ue,ie,sesh);
 			}
 			else
 			{

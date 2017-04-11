@@ -1,14 +1,17 @@
 package QCTeamG.QCApp.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import QCTeamG.QCApp.entities.ItemsEntity;
+import QCTeamG.QCApp.entities.ResetPasswordEntity;
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserRolesEntity;
 import QCTeamG.QCApp.entities.UsersEntity;
@@ -33,7 +36,7 @@ public class UsersDaoI implements UsersDAO  {
 		}
 	}
 	
-	public void activateUser(UsersEntity user)
+	public void activateUser(UsersEntity user, Session sesh)
 	{
         if (user != null) {
         		this.sessionFactory.getCurrentSession().update(user);
@@ -111,6 +114,56 @@ public class UsersDaoI implements UsersDAO  {
 		 Object item = cq.uniqueResult();
 		 return (ItemsEntity) item;
 	}
+	
+	public List<ItemsEntity> getSpecificItemsById(List<Integer> iids, Session sesh)
+	{
+		 try
+		 {
+			 Query cq = sesh.createQuery("select ie from ItemsEntity ie where ie.id in (:list)");
+			 cq.setParameterList("list", iids);
+			 return (List<ItemsEntity>)cq.list();
+		 }
+		 catch (Exception e)
+		 {
+		 }
+		 return null;
+	}
+	
+	/*
+	 * 
+	 * Password Reset Methods
+	 * 
+	 */
 
+	public void createNewTimestamp(Timestamp time_stamp, ResetPasswordEntity password_reset_entity) {
+		this.sessionFactory.getCurrentSession().save(password_reset_entity);
+	}
+	
+	public void updateTimestamp(String rankey)
+    {	    		
+    		Query qq = sessionFactory.getCurrentSession().createQuery("update PasswordResetEntity set used=:usd where random_key = :rankey");
+    		qq.setBoolean("usd", true);
+    		qq.setString("rankey", rankey);
+    		qq.executeUpdate();
+    		
+    }
+	
+	@SuppressWarnings("unchecked")
+	public List<ResetPasswordEntity> getAllUserTimestamps(String userid) {
+		return this.sessionFactory.getCurrentSession().createQuery("from PasswordResetEntity").list();
+	}
+	
+	
+	public Timestamp getLatestTimestamp(String userid) {
+		
+	ResetPasswordEntity ee = (ResetPasswordEntity)sessionFactory.getCurrentSession().createQuery("from PasswordResetEntity where id = "+userid).uniqueResult();
+		  return ee.getTime();
+		
+	}
+	
+	 public ResetPasswordEntity getResetByToken(String token) {
+		 ResetPasswordEntity ee = (ResetPasswordEntity)sessionFactory.getCurrentSession().createQuery("from ResetPasswordEntity where random_key ='"+token+"'").uniqueResult();
+		  return ee;
+	 }
 
 }

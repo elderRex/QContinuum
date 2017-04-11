@@ -93,6 +93,7 @@ public class RegistrationController {
 			ue.setEmail(login.getEmail());
 			ue.setFirstname(login.getFirstname());
 			ue.setLastname(login.getLastname());
+			ue.setRecStrength(0);
 			ue.setPassword(login.getPassword());
 			UserRolesEntity ure = new UserRolesEntity();
 			ure.setEmail(login.getEmail());

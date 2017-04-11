@@ -1,8 +1,12 @@
 package QCTeamG.QCApp.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import QCTeamG.QCApp.entities.ItemsEntity;
+import QCTeamG.QCApp.entities.ResetPasswordEntity;
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserRolesEntity;
 import QCTeamG.QCApp.entities.UsersEntity;
@@ -29,7 +33,7 @@ public interface UsersDAO
 	
 	public UsersEntity getUserByEmail(String user_email);
 	
-	public void activateUser(UsersEntity user);
+	public void activateUser(UsersEntity user, Session sesh);
 	
 	public void deleteUserRole(UserRolesEntity ure);
 	
@@ -38,5 +42,17 @@ public interface UsersDAO
 	public List<ReviewsEntity> getUserQuestions(int uid);
 	
 	public ItemsEntity getItemById(int iid);
+	
+	public ResetPasswordEntity getResetByToken(String token);
+	
+	public Timestamp getLatestTimestamp(String userid);
+	
+	public List<ResetPasswordEntity> getAllUserTimestamps(String userid);
+	
+	public void updateTimestamp(String rankey);
+	
+	public void createNewTimestamp(Timestamp time_stamp, ResetPasswordEntity password_reset_entity);
+	
+	public List<ItemsEntity> getSpecificItemsById(List<Integer> iids, Session sesh);
     
 }

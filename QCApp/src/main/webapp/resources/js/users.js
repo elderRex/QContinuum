@@ -96,6 +96,7 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	
 	// Submit Review Responses
 	$scope.submit_answers = function() {
+		$scope.overlay_off = false;
 		var req = $http.post(
 				(pathingService.getCurrentPath('user/answer_questions')), $scope.user_answers)
 				req.success(function(data)

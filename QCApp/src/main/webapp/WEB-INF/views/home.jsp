@@ -7,7 +7,10 @@
 	<title>QCApp</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/login.js" />"> </script>
 </head>
-<body ng-app="home" ng-controller="homeController" ng-init="load()">
+<body ng-app="app" ng-controller="loginController">
+	<div class="overlay_cover" ng-hide="overlay_off">
+		<div class="loader"></div>
+	</div>
 	<nav class="navigation navbar-fixed-top">
 		<div>
 			<div class="col-xs-2 nav-col">
