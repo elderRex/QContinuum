@@ -41,8 +41,8 @@ public class userSetupQuestionTest {
        public void testFailedQuestion() {
                HttpServletRequest request = mock(HttpServletRequest.class);
               
-               HomeController hc = new HomeController();
-               assertNull(hc.getUserSetupQuestions(null, request));
+               UserController uc = new UserController();
+               assertNull(uc.getUserSetupQuestions(null, request));
               
        
        }
