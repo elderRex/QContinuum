@@ -54,30 +54,47 @@ app.service('questionsService', function($http,$location,pathingService) {
 app.controller('userController', ['$scope', '$http','$location','pathingService','questionsService', function($scope, $http, $location,pathingService,questionsService) {	
 
 	$scope.user_answers = {};
-	$scope.user_recommendations = {};
+	$scope.user_recommendations = [];
 	$scope.overlay_off = false;
 	$scope.questions_answered = false;
+	
+	$scope.render_recs = function(promise)
+	{
+		
+	}
 	
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
 		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
-			var model_recommendations = JSON.stringify(promise);
-			debugger
-			// Retrieve ItemsEntity for every recommendation
-			$.ajax({
-			  type: "POST",
-			  contentType:'application/json',
-			  url: pathingService.getCurrentPath("user/model-recommendations"),
-			  data: model_recommendations
-			}).then(function(data) {
-				$scope.user_recommendations = JSON.parse(data);
-				$scope.$apply(function() {
-					$scope.overlay_off = true;
-					});
-				
-			});
-			
+			$scope.render_recs(promise);
+			var slice_size = Math.round(promise.length/50);
+			var ii = 0;
+			while (ii < slice_size)
+			{
+				var sub_arr = promise.slice(ii*slice_size,slice_size+(ii*slice_size));
+				var model_recommendations = JSON.stringify(sub_arr);
+				// Retrieve ItemsEntity for every recommendation
+				$.ajax({
+				  type: "POST",
+				  contentType:'application/json',
+				  url: pathingService.getCurrentPath("user/model-recommendations"),
+				  data: model_recommendations
+				}).then(function(data) {
+					$scope.$apply(function() {
+						var parsed = JSON.parse(data);
+						for(var iii = 0; iii < parsed.length; iii++)
+						{
+							$scope.user_recommendations.push(parsed[iii]);
+						}
+						
+						
+						$scope.overlay_off = true;
+						});
+					
+				});
+				ii++;
+			}
 		 });
 	}
 	

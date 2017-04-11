@@ -125,6 +125,7 @@ public class UsersDaoI implements UsersDAO  {
 		 }
 		 catch (Exception e)
 		 {
+			 System.out.println(e);
 		 }
 		 return null;
 	}
