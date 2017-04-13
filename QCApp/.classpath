@@ -40,5 +40,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/resources/jardir/jsoup-1.10.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/resources/jardir/mysql-connector-java-5.1.6.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/resources/jardir/sendgrid-java-2.2.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/resources/jardir/javax.mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
