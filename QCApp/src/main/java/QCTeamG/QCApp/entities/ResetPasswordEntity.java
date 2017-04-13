@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class ResetPasswordEntity {
 	     
 		@Id
-	    @Column(name="idpassword_reset")
+	    @Column(name="id")
 	    @GeneratedValue
 	    private Integer id;
 	     

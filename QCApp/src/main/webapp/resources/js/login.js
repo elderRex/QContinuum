@@ -15,6 +15,7 @@ app.controller('loginController', ['$scope', '$http','$location','pathingService
 		$scope.password_email = $("#password-email").val();
 		$scope.password = $("#new-password").val();
 		$scope.password_confirmation = $("#new-password-confirmation").val();
+		debugger
 		$http({
 	        method: 'POST',
 	        url: pathingService.getCurrentPath('change-password'),

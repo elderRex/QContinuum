@@ -156,11 +156,11 @@ public class UsersDaoI implements UsersDAO  {
 		}
 	}
 	
-	public void updateTimestamp(String rankey)
+	public void updateTimestamp(String key)
     {	    		
-    		Query qq = sessionFactory.getCurrentSession().createQuery("update PasswordResetEntity set used=:usd where random_key = :rankey");
-    		qq.setBoolean("usd", true);
-    		qq.setString("rankey", rankey);
+    		Query qq = sessionFactory.getCurrentSession().createQuery("update PasswordResetEntity set was_reset=:tset where random_token = :key");
+    		qq.setBoolean("tset", true);
+    		qq.setString("key", key);
     		qq.executeUpdate();
     		
     }
@@ -179,7 +179,7 @@ public class UsersDaoI implements UsersDAO  {
 	}
 	
 	 public ResetPasswordEntity getResetByToken(String token) {
-		 ResetPasswordEntity ee = (ResetPasswordEntity)sessionFactory.getCurrentSession().createQuery("from ResetPasswordEntity where random_key ='"+token+"'").uniqueResult();
+		 ResetPasswordEntity ee = (ResetPasswordEntity)sessionFactory.getCurrentSession().createQuery("from ResetPasswordEntity where random_token ='"+token+"'").uniqueResult();
 		  return ee;
 	 }
 
