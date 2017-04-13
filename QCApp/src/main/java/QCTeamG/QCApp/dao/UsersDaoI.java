@@ -158,16 +158,15 @@ public class UsersDaoI implements UsersDAO  {
 	
 	public void updateTimestamp(String key)
     {	    		
-    		Query qq = sessionFactory.getCurrentSession().createQuery("update PasswordResetEntity set was_reset=:tset where random_token = :key");
+    		Query qq = sessionFactory.getCurrentSession().createQuery("update ResetPasswordEntity set was_reset=:tset where random_token = :key");
     		qq.setBoolean("tset", true);
     		qq.setString("key", key);
     		qq.executeUpdate();
-    		
     }
 	
 	@SuppressWarnings("unchecked")
 	public List<ResetPasswordEntity> getAllUserTimestamps(String userid) {
-		return this.sessionFactory.getCurrentSession().createQuery("from PasswordResetEntity").list();
+		return this.sessionFactory.getCurrentSession().createQuery("from ResetPasswordEntity").list();
 	}
 	
 	

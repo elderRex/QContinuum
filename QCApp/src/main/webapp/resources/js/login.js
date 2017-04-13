@@ -1,6 +1,6 @@
 var app = angular.module('app', ['pathing_controller']);
 
-app.controller('loginController', ['$scope', '$http','$location','pathingService', function($scope, $http, $location,pathingService) {	
+app.controller('loginController', ['$scope', '$http','$window','$location','pathingService', function($scope, $http,$window, $location,pathingService) {	
 
 	$scope.data = {};
 	
@@ -27,7 +27,7 @@ app.controller('loginController', ['$scope', '$http','$location','pathingService
 	        		}
 	    }).success(function(data, status, headers, config) {
 	    		$scope.password_link_sent = true;
-	    		$window.location.href = pathingService.getCurrentPath("home");
+	    		$window.location.href = pathingService.getCurrentPath("");
 	    	
 	    }).error(function(data, status, headers, config) {
 	    		$scope.password_change_error = true;
