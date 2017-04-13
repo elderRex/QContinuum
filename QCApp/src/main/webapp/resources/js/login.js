@@ -6,6 +6,38 @@ app.controller('loginController', ['$scope', '$http','$location','pathingService
 	
 	$scope.overlay_off = true;
 	
+	/*
+	 * Password Change Functionality
+	 */
+	
+	$scope.update_password = function()
+	{
+		$scope.password_email = $("#password-email").val();
+		$scope.password = $("#new-password").val();
+		$scope.password_confirmation = $("#new-password-confirmation").val();
+		$http({
+	        method: 'POST',
+	        url: pathingService.getCurrentPath('change-password'),
+	        contentType: "application/json",
+	        data: {
+	        			'email' : $scope.password_email,
+	        			'new-password' : $scope.password,
+	        			'new-password-confirmation' : $scope.password_confirmation
+	        		}
+	    }).success(function(data, status, headers, config) {
+	    		$scope.password_link_sent = true;
+	    		$window.location.href = pathingService.getCurrentPath("home");
+	    	
+	    }).error(function(data, status, headers, config) {
+	    		$scope.password_change_error = true;
+	    });
+	};
+	
+	$scope.init_pw_change = function()
+	{
+		$scope.password_change_error = false;
+	}
+	
 	$scope.view_reset_password = function()
 	{
 		$scope.password_link_sent = false;

@@ -3,10 +3,12 @@ package QCTeamG.QCApp.controller;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.InetAddress;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,13 +94,13 @@ public class HomeController {
 		return "password_reset";
 	}
 	
-	@RequestMapping(value="reset-password/{token}", method=RequestMethod.GET)
+	@RequestMapping(value="password-reset/{token}", method=RequestMethod.GET)
 	public ModelAndView viewResetPassword(@PathVariable String token)
 	{
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("tempCode", token);
-		mav.setViewName("accounts/password_reset");
+		mav.setViewName("new_password");
 		return mav;
 		
 	}
@@ -107,7 +109,7 @@ public class HomeController {
 	@RequestMapping(value = "send-password-reset", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@Transactional
 	@ResponseBody 
-	public ResponseEntity<String> generateResetPassword(@RequestBody String data) throws MessagingException, IOException {
+	public ResponseEntity<String> generateResetPassword(@RequestBody String data,HttpServletRequest request) throws MessagingException, IOException {
 		
 		ApplicationContext appContext = null;
 		
@@ -147,7 +149,13 @@ public class HomeController {
 			pre.setUserEmail(email);
 			pre.setUId(us.getId());
 			
-			String authentication_token = "http://sample-env-1.jevngzemth.us-west-2.elasticbeanstalk.com/" + token;
+			String authentication_token = "http://sample-env-1.jevngzemth.us-west-2.elasticbeanstalk.com/password-reset/" + token;
+			String req = request.getRequestURL().toString();
+			
+			if (req.toLowerCase().contains("localhost".toLowerCase()))
+			{
+				authentication_token = "http://localhost:8080/qc/password-reset/" + token;
+			}
 			
 			userDAO.createNewTimestamp(time_stamp, pre);
 			UserMail um = (UserMail)appContext.getBean("userMail");
