@@ -18,24 +18,42 @@
 </div>
 <jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
-		<div ng-repeat="q in user_answers" class="centered-box w-50 h-500" ng-show="q.show">
-				<div class="item-elem">
-					{{q.iid.name}}
-				</div>
-				<div class="scroller">
-					{{q.review_text}}
-				</div>
-				<div class="ctr well">
-					<div class="title-div-medium">
-						<span>Please read part of the review and tell us if you like it or agree with it</span>
+		<div class="centered-box w-50 h-500" ng-show="!ready" ng-hide="!overlay_off">
+			<div class="title-div-medium">
+				<span class="itxt">Hey ${userEmail.getFirstname()},</span>
+			</div>
+			<div class="title-div-lg">
+				<span class="itxt">
+					We're about to show you snippets from some movie reviews.
+					After reading each snippet, click 'like' or 'dislike' if you liked the review itself, even if
+					 you haven't seen the movie.
+				</span>
+			</div>
+			<div class="title-div-medium" style="text-align: center">
+				<button ng-click="ready=true">Get Started</button>
+			</div>
+		</div>
+		<div ng-show="ready">
+			<div ng-repeat="q in user_answers" class="centered-box w-50 h-500" ng-show="q.show">
+					<div style="text-align: right;">{{$index}} of 20 Reviews Answered</div>
+					<div class="item-elem">
+						{{q.iid.name}}
 					</div>
-					<div ng-show="!questions_answered">
-						<div class="button-option col-xs-4"></div>
-						<div class="button-option col-xs-2">
-							<button ng-click="review_liked(true,$index)">Like</button>
+					<div class="scroller">
+						{{q.review_text}}
+					</div>
+					<div class="ctr well">
+						<div class="title-div-medium">
+							<span>Please read part of the review and tell us if you like it or agree with it</span>
 						</div>
-						<div class="button-option col-xs-2">
-							<button ng-click="review_liked(false,$index)">Dislike</button>
+						<div ng-show="!questions_answered">
+							<div class="button-option col-xs-4"></div>
+							<div class="button-option col-xs-2">
+								<button ng-click="review_liked(true,$index)">Like</button>
+							</div>
+							<div class="button-option col-xs-2">
+								<button ng-click="review_liked(false,$index)">Dislike</button>
+							</div>
 						</div>
 					</div>
 				</div>
