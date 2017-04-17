@@ -33,6 +33,10 @@ body
 {
 	height : 500px;
 }
+.h-600
+{
+	height : 600px;
+}
 h-150
 {
 	height: 150px;
@@ -49,6 +53,10 @@ h-100
 .w-50
 {
 	width: 50%;
+}
+.w-80
+{
+	width: 80%;
 }
 .title
 {
@@ -89,7 +97,8 @@ h-100
 {
 	text-align: center;
 	margin-top: 20px;
-	height: 150px;
+	height: 190px;
+	border: 1px solid grey;
 }
 .item-elem
 {

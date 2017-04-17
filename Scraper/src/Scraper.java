@@ -25,15 +25,17 @@ public class Scraper {
 		//downloadHTMLTestPos();
 		//downloadHTMLTrainPos();
 		
-		extractTrainPosReviewsHTML();
+		//extractTrainPosReviewsHTML();
 		//downloadHTMLTrainPos();
+		
+		extractTestPosReviewsHTML();
 
 	}
 	
-	public static void extractTrainPosReviewsHTML() throws IOException
+	public static void extractTestPosReviewsHTML() throws IOException
 	{
 		String uhome = System.getProperty("user.home");
-		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_train_extracted.txt");
+		File file = new File(uhome + "/Dropbox/ASE/Extracted/pos_test_extracted.txt");
 		
 		FileWriter fw = new FileWriter(file);
 		BufferedWriter bw = new BufferedWriter(fw);
@@ -41,12 +43,12 @@ public class Scraper {
 		int count = 0;
 		long prevFileSize = 0;
 		
-		for (int i = 1389; i >= 0; i--)
+		for (int i = 1350; i >= 0; i--)
 		{
 			try
 			{
 			
-				String pg_ref = uhome+"/Dropbox/ASE/HTML_train_pos/pos_movie_"+i+".html";
+				String pg_ref = uhome+"/Dropbox/ASE/HTML_test_pos/pos_movie_"+i+".html";
 	
 				File fl = new File(pg_ref);
 	
@@ -107,13 +109,16 @@ public class Scraper {
 		
 	}
 	
-	// Downloads HTML from IMDB Training Set
-	public static void downloadHTMLTestPos() throws IOException, InterruptedException
+	/* 
+	 * Download Movie (non-review) HTML Files 
+	 * This will be automated in future versions
+	 */
+	public static void downloadMHTMLTrainNeg() throws IOException, InterruptedException
 	{
 		String uhome = System.getProperty("user.home");
 		
 		// Read file containing urls
-		File file = new File(uhome + "/Dropbox/ASE/aclImdb/test/urls_pos.txt");
+		File file = new File(uhome + "/Dropbox/ASE/aclImdb/train/urls_neg.txt");
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		
@@ -129,14 +134,13 @@ public class Scraper {
 			prevUrl = url;
 			try
 			{
-				Response response = Jsoup.connect(url).execute();
+				String m_page = url.split("/usercomments")[0];
+				Response response = Jsoup.connect(m_page).execute();
 		        Document doc = response.parse();
-		        String fname = uhome+"/Dropbox/ASE/HTML_test_pos/pos_movie_"+count+".html";
+		        String fname = uhome+"/Dropbox/ASE/mHTML_train_neg/neg_movie_"+count+".html";
 		        File f = new File(fname);
 		        f.createNewFile();
 		        Random rand = new Random(); 
-		        //int value = rand.nextInt(3); 
-		        //TimeUnit.SECONDS.sleep(value);
 		        FileUtils.writeStringToFile(f, doc.outerHtml(), "UTF-8");
 			}
 			catch (Exception e)
@@ -147,8 +151,5 @@ public class Scraper {
 	        count++;
 		}
 	}
-	
-	
-	
 
 }

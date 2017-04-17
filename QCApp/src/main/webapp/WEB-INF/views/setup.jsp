@@ -18,7 +18,7 @@
 </div>
 <jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
-		<div class="centered-box w-50 h-500" ng-show="!ready" ng-hide="!overlay_off">
+		<div class="centered-box w-50 h-600" ng-show="!ready" ng-hide="!overlay_off">
 			<div class="title-div-medium">
 				<span class="itxt">Hey ${userEmail.getFirstname()},</span>
 			</div>
@@ -34,30 +34,37 @@
 			</div>
 		</div>
 		<div ng-show="ready">
-			<div ng-repeat="q in user_answers" class="centered-box w-50 h-500" ng-show="q.show">
-					<div style="text-align: right;">{{$index}} of 20 Reviews Answered</div>
-					<div class="item-elem">
-						{{q.iid.name}}
+			<div ng-repeat="q in user_answers">
+				<div class="centered-box w-80 h-600" ng-show="q.show">
+					<div class="col-xs-4">
+						<img src="/qc/resources/img/{{q.iid.name}}.jpg" onError="this.onerror=null;this.src='/qc/resources/img/no_image.jpg';" />
 					</div>
-					<div class="scroller">
-						{{q.review_text}}
-					</div>
-					<div class="ctr well">
-						<div class="title-div-medium">
-							<span>Please read part of the review and tell us if you like it or agree with it</span>
+					<div class="col-xs-8">
+						<div style="text-align: right">{{$index}} of 10 Reviews Answered</div>
+						<div class="item-elem">
+							{{q.iid.name}}
 						</div>
-						<div ng-show="!questions_answered">
-							<div class="button-option col-xs-4"></div>
-							<div class="button-option col-xs-2">
-								<button ng-click="review_liked(true,$index)">Like</button>
+						<div class="scroller" style="font-size: 16px; line-height: 180%">
+							{{q.review_text | limitTo: 600 }}...
+						</div>
+						<div class="ctr">
+							<div class="title-div-medium">
+								<span>Please read part of the review and tell us if you like it or agree with it</span>
 							</div>
-							<div class="button-option col-xs-2">
-								<button ng-click="review_liked(false,$index)">Dislike</button>
+							<div ng-show="!questions_answered">
+								<div class="button-option col-xs-4"></div>
+								<div class="button-option col-xs-2" >
+									<img ng-click="review_liked(true,$index)" style="width: 75%; height: 75%; cursor: pointer" src="<c:url value="/resources/img/like_btn.jpg" />" alt="" />
+								</div>
+								<div class="button-option col-xs-2">
+									<img ng-click="review_liked(false,$index)" style="width: 75%; height: 75%; cursor: pointer" src="<c:url value="/resources/img/dislike_btn.jpg" />" alt="" />
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		<div ng-show="questions_answered" class="ctr well">
 			<div class="title-div-medium">
 				<span>You're all set! Click Submit and please wait until your recommendations are ready.</span>

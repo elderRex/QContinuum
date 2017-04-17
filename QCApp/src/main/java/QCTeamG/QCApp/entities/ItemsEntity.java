@@ -28,6 +28,9 @@ public class ItemsEntity {
     @Column(name="TYPE")
     private String type;
     
+    @Column(name="SUBJECT")
+    private String subject;
+    
     @Column(name="DESCRIPTION")
     private String description;
     
@@ -43,6 +46,14 @@ public class ItemsEntity {
     
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getSubject() {
+        return subject;
+    }
+        
+    public void setSubject(String sub) {
+        this.subject = sub;
     }
     
     public String getType() {

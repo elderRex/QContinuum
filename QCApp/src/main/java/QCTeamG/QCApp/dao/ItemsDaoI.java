@@ -1,6 +1,7 @@
 package QCTeamG.QCApp.dao;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,13 @@ public class ItemsDaoI implements ItemsDAO {
 		  {
 		  }
 		  return null;
+	}
+	
+	public void updateItem(ItemsEntity it, Session sesh)
+	{
+        if (it != null) {
+        		sesh.update(it);
+        }
 	}
 
 }

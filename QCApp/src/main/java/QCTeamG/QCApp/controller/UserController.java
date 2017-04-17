@@ -77,7 +77,7 @@ public class UserController {
 	}
 	
 	@Transactional
-	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces="text/html;charset=UTF-8")
 	public @ResponseBody String getUserSetupQuestions(Principal principal, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession(true);
@@ -96,9 +96,9 @@ public class UserController {
 			String json = gson.toJson(t);
 	        ls.add(json);
 		}
-	
-		return ls.toString();
-		
+		String res = ls.toString();
+		String clean = res.replaceAll("�","é");
+		return clean;
 	}
 	
 	// Get The uid of the current user

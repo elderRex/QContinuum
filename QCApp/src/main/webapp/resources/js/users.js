@@ -41,8 +41,10 @@ app.service('questionsService', function($http,$location,pathingService) {
 	    		var result = 
 	    			$http({
 					    url: url, 
-					    method: "GET"
+					    method: "GET",
+					    contentType: "text/html; charset=utf-8",
 					 }).then(function(questions) { 
+						 debugger
 						 user_questions = questions; 
 					});
 	    		return result;
@@ -124,9 +126,6 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 		questionsService.getQuestions().then(function(promise) {
 			$scope.user_answers = questionsService.fetchQuestions().data;
 			$scope.user_answers[0].show = true;
-//			.forEach(function(ua) {
-//				ua.position = 
-//			});
 			$scope.overlay_off = true;
 		});
 	}
