@@ -11,10 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserAnswersEntity;
+import QCTeamG.QCApp.entities.UserFavoritesEntity;
 
 @Repository
 @Transactional
 public class ReviewsDaoI implements ReviewsDAO {
+	
+	@Autowired
+    private SessionFactory sessionFactory;
 	
 	public Integer createUserAnswer(UserAnswersEntity user_answer, Session sesh) {
 		Integer id = (Integer)sesh.save(user_answer);
@@ -56,4 +60,26 @@ public class ReviewsDaoI implements ReviewsDAO {
 
 	}
 	
+	/* Methods for getting and posting user favorites */
+	public List<UserFavoritesEntity> getUserFavorites(int uid) {
+		Session sesh = sessionFactory.getCurrentSession();
+		List<UserFavoritesEntity> ufs = (List<UserFavoritesEntity>)sesh.createQuery("from UserFavoritesEntity where uid = "+uid).list();
+		return ufs;
+	}
+	
+	public UserFavoritesEntity getSpecificUserFavorite(int ufid) {
+		Session sesh = sessionFactory.getCurrentSession();
+		UserFavoritesEntity uf = (UserFavoritesEntity)sesh.createQuery("from UserFavoritesEntity uf where uf.id = "+ufid).uniqueResult();
+		return uf;
+	}
+	
+	public Integer createUserFavorite(UserFavoritesEntity ufid, Session sesh) {
+		Integer id = (Integer)sesh.save(ufid);
+		return id;
+	}
+	
+	public void removeUserFavorite(UserFavoritesEntity ufid, Session sesh) {
+		sesh.delete(ufid);
+	}
+
 }

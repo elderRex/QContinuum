@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import QCTeamG.QCApp.dao.ItemsDAO;
 import QCTeamG.QCApp.dao.ReviewsDAO;
 import QCTeamG.QCApp.dao.UsersDAO;
 import QCTeamG.QCApp.entities.ItemsEntity;
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserAnswersEntity;
+import QCTeamG.QCApp.entities.UserFavoritesEntity;
 import QCTeamG.QCApp.entities.UsersEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +57,9 @@ public class UserController {
 	
 	@Autowired
 	ReviewsDAO reviewsDAO;
+	
+	@Autowired
+	ItemsDAO itemsDAO;
 
 	@ModelAttribute("userEmail")
 	@RequestMapping(value = "user/setup", method = RequestMethod.GET)
@@ -194,7 +199,7 @@ public class UserController {
 		}
 		
 		@Transactional
-		@RequestMapping(value = "/user/model-recommendations", method = RequestMethod.POST, produces="text/plain;charset=UTF-8")
+		@RequestMapping(value = "/user/model-recommendations", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 		public @ResponseBody String generateRecommendations(@RequestBody String model_selections, HttpServletRequest request, Principal principal) throws IOException {
 			
 			SessionController sco = new SessionController();
@@ -263,6 +268,72 @@ public class UserController {
 			
 			userDAO.modifyUserProfile(ue);
 			return "";
+		}
+		
+		
+		@Transactional
+		@RequestMapping(value = "/user/create-favorite", method = RequestMethod.POST)
+		@ResponseBody
+		public String createUserFavorite(@RequestBody String iid, HttpServletRequest request, Principal principal) {
+			
+			SessionController sco = new SessionController();
+			beanFactory.autowireBean(sco);
+			Integer uid = sco.getSessionUserId(principal);
+			UsersEntity ue = userDAO.getUserById(uid);
+			
+			Session sesh = sessionFactory.getCurrentSession();
+			
+			UserFavoritesEntity ufe = new UserFavoritesEntity();
+			ItemsEntity ie = (ItemsEntity)itemsDAO.getItemById(Integer.parseInt(iid));
+			ufe.setItem(ie);
+			ufe.setUser(ue);
+			
+			reviewsDAO.createUserFavorite(ufe, sesh);
+			return "";
+		}
+		
+		@Transactional
+		@RequestMapping(value = "/user/delete-favorite", method = RequestMethod.POST)
+		@ResponseBody
+		public String deleteUserFavorite(@RequestBody String ufid, HttpServletRequest request, Principal principal) {
+			
+			SessionController sco = new SessionController();
+			beanFactory.autowireBean(sco);
+			Integer uid = sco.getSessionUserId(principal);
+			UsersEntity ue = userDAO.getUserById(uid);
+			
+			Session sesh = sessionFactory.getCurrentSession();
+			UserFavoritesEntity uf = reviewsDAO.getSpecificUserFavorite(Integer.parseInt(ufid));
+			reviewsDAO.removeUserFavorite(uf, sesh);
+			return "";
+		}
+		
+		@Transactional
+		@RequestMapping(value="/user/get-all-favorites",method=RequestMethod.GET,produces="text/html;charset=UTF-8")
+		public @ResponseBody String getUserFavorites(Principal principal, HttpServletRequest request) {
+			
+			HttpSession session = request.getSession(true);
+			
+			SessionController sco = new SessionController();
+			beanFactory.autowireBean(sco);
+			Integer uid = sco.getSessionUserId(principal);
+			
+			List<UserFavoritesEntity> user_favs = reviewsDAO.getUserFavorites(uid);
+			
+			Gson gson = new Gson();
+			 
+			List<String> ls = new ArrayList<String>();
+		
+			for (UserFavoritesEntity uf : user_favs) {
+				String json = gson.toJson(uf);
+		        ls.add(json);
+			}
+			// Data was inserted incorrectly into db, limited time to fix, so compensate for missing characters
+			// with by far the most likely culprit,the accent aigu.
+			
+			String res = ls.toString();
+			String clean = res.replaceAll("�","é");
+			return clean;
 		}
 		
 	

@@ -23,15 +23,15 @@
 			</div>
 			<div class="item-elem">
 				<span>Name : </span>
-				<span style="font-weight: none; color : grey;">{{user_detail} ${userEmail.getLastname()}</span>
+				<span style="font-weight: none; color : grey;">{{user_detail.firstname}} {{user_detail.lastname}} </span>
 			</div>
 			<div class="item-elem">
 				<span>Email: </span>
-				<span style="font-weight: none; color : grey;">${userEmail.getEmail()}</span>
+				<span style="font-weight: none; color : grey;">{{user_detail.email}} </span>
 			</div>
 			<div class="item-elem">
 				<span>Return recommendations that are : </span>
-				<span id="recStrength" style="font-weight: none; color : grey;">${userEmail.getRecStrengthString()}</span>
+				<span id="recStrength" style="font-weight: none; color : grey;">{{rec_strength_options[user_detail.rec_strength].text}} </span>
 			</div>
 			<div class="item-elem">
 					<span>Quality of recommendations : </span>

@@ -36,6 +36,12 @@ public class ItemsDaoI implements ItemsDAO {
 		  return null;
 	}
 	
+	public ItemsEntity getItemById(Integer id) {
+		  Query qa = sessionFactory.getCurrentSession().createQuery("from ItemsEntity i where i.id ="+id);
+		  ItemsEntity ii = (ItemsEntity)qa.uniqueResult();
+		  return ii;
+	}
+	
 	public void updateItem(ItemsEntity it, Session sesh)
 	{
         if (it != null) {

@@ -19,6 +19,7 @@
 <jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
 		<div class="centered-box w-50 h-600" ng-show="!ready" ng-hide="!overlay_off">
+			<jsp:include page="partials/uname.jsp"/>
 			<div class="title-div-lg">
 				<span class="itxt">
 					We're about to show you snippets from some movie reviews.
@@ -35,6 +36,12 @@
 				<div class="centered-box w-80 h-600" ng-show="q.show">
 					<div class="col-xs-4">
 						<img src="/qc/resources/img/{{q.iid.name}}.jpg" onError="this.onerror=null;this.src='/qc/resources/img/no_image.jpg';" />
+						<div class="item-elem" style="margin-top: 10px;">
+							Subject : <span style="font-weight: lighter">{{q.iid.subject}}</span>
+						</div>
+						<div class="item-elem" style="margin-top: 10px;">
+							Description : <span style="font-weight: lighter">{{q.iid.description}}</span>
+						</div>
 					</div>
 					<div class="col-xs-8">
 						<div style="text-align: right">{{$index}} of 10 Reviews Answered</div>

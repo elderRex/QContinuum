@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import QCTeamG.QCApp.entities.ReviewsEntity;
 import QCTeamG.QCApp.entities.UserAnswersEntity;
+import QCTeamG.QCApp.entities.UserFavoritesEntity;
 
 public interface ReviewsDAO {
 	
@@ -20,5 +21,13 @@ public interface ReviewsDAO {
 	public List<ReviewsEntity> getReviewsByItem(int iid, Session sesh);
 	
 	public ReviewsEntity getReviewByReviewText(String content, Session sesh);
+	
+	public Integer createUserFavorite(UserFavoritesEntity ufid, Session sesh);
+	
+	public void removeUserFavorite(UserFavoritesEntity ufid, Session sesh);
+	
+	public UserFavoritesEntity getSpecificUserFavorite(int ufid);
+	
+	public List<UserFavoritesEntity> getUserFavorites(int uid);
 
 }

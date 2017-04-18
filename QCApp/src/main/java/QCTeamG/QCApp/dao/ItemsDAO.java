@@ -11,5 +11,7 @@ public interface ItemsDAO {
 	public ItemsEntity getItemByName(String name);
 	
 	public void updateItem(ItemsEntity it, Session sesh);
+	
+	public ItemsEntity getItemById(Integer id);
 
 }

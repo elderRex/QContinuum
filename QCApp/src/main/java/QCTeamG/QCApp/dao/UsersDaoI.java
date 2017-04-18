@@ -110,17 +110,13 @@ public class UsersDaoI implements UsersDAO  {
 	}
 
 	public List<ReviewsEntity> getUserQuestions(int uid) {
-		  //Query cq = sessionFactory.getCurrentSession().createQuery("select u from ReviewsEntity u ORDER BY rand()").setMaxResults(10);
-		Query cq = sessionFactory.getCurrentSession().createQuery("select u from ReviewsEntity u where u.iid.name like :nm"); 
-		cq.setString("nm", "Fur: An Imaginary Portrait of Diane Arbus");
+		Query cq = sessionFactory.getCurrentSession().createQuery("select u from ReviewsEntity u ORDER BY rand()").setMaxResults(10);
 		Object oe = cq.list();
 		return (List<ReviewsEntity>) oe;
 	}
 	
 	public ItemsEntity getItemById(int iid) {
-		 //Query cq = sessionFactory.getCurrentSession().createQuery("select u from ItemsEntity u ORDER BY rand()").setMaxResults(7);
-		 Query cq = sessionFactory.getCurrentSession().createQuery("select ie from ItemsEntity ie where ie.id = :itid");
-		 cq.setParameter("itid", iid);
+		 Query cq = sessionFactory.getCurrentSession().createQuery("select u from ItemsEntity");
 		 Object item = cq.uniqueResult();
 		 return (ItemsEntity) item;
 	}
