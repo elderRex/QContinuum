@@ -96,6 +96,8 @@ public class UserController {
 			String json = gson.toJson(t);
 	        ls.add(json);
 		}
+		// Data was inserted incorrectly into db, limited time to fix, so compensate for missing characters
+		// with by far the most likely culprit,the accent aigu.
 		String res = ls.toString();
 		String clean = res.replaceAll("�","é");
 		return clean;
@@ -116,15 +118,22 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value="/user/get-user",method=RequestMethod.GET,produces={"application/xml", "application/json"})
+	public @ResponseBody String getUser(Principal principal, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+		SessionController sco = new SessionController();
+		beanFactory.autowireBean(sco);
+		Integer uid = sco.getSessionUserId(principal);
+		UsersEntity ue = userDAO.getUserById(uid);
+		String json = new Gson().toJson(ue);
+		return json.toString();
+		
+	}
+	
 	// Redirection depending on user authentication level
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String user(Principal principal, HttpServletRequest request) {
-		
-//		List<Integer> idsList = new ArrayList<Integer>(Arrays.asList(4528,4647,8416,9018));
-//		
-//		Session sesh = sessionFactory.getCurrentSession();
-//		
-//		userDAO.getSpecificItemsById(idsList, sesh);
 		
 		SessionController sco = new SessionController();
 		beanFactory.autowireBean(sco);
@@ -231,8 +240,11 @@ public class UserController {
 				ls.add(combined_item);
 			}
 
-			return ls.toString();
-			
+			// Data was inserted incorrectly into db, limited time to fix, so compensate for missing characters
+			// with by far the most likely culprit,the accent aigu.
+			String res = ls.toString();
+			String clean = res.replaceAll("�","é");
+			return clean;
 		}
 		
 		

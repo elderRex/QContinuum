@@ -16,6 +16,17 @@ app.controller('accountsController', ['$scope', '$http','$location','pathingServ
 	}
 	
 	$scope.rec_strength_options = get_rec_options();
+	$scope.user_detail = {};
+	
+	$scope.account_init = function()
+	{
+		debugger
+		$http.get(pathingService.getCurrentPath('user/get-user')).then(function(user)
+		{
+			$scope.user_detail = user.data;
+			$scope.overlay_off = true;
+		});
+	}
 	
 	$scope.hide_update = true;
 	

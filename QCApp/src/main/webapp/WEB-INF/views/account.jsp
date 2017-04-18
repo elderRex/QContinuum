@@ -7,7 +7,7 @@
 	<title>Your Account</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/accounts.js" />"> </script>
 </head>
-<body ng-app="app" ng-controller="accountsController" ng-init="overlay_off=true">
+<body ng-app="app" ng-controller="accountsController" ng-init="account_init()">
 	<div class="overlay" ng-hide="overlay_off">
 		<div class="loader">Loading...</div>
 	</div>
@@ -23,7 +23,7 @@
 			</div>
 			<div class="item-elem">
 				<span>Name : </span>
-				<span style="font-weight: none; color : grey;">${userEmail.getFirstname()} ${userEmail.getLastname()}</span>
+				<span style="font-weight: none; color : grey;">{{user_detail} ${userEmail.getLastname()}</span>
 			</div>
 			<div class="item-elem">
 				<span>Email: </span>

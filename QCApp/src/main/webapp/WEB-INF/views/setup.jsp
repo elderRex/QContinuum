@@ -19,9 +19,6 @@
 <jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
 		<div class="centered-box w-50 h-600" ng-show="!ready" ng-hide="!overlay_off">
-			<div class="title-div-medium">
-				<span class="itxt">Hey ${userEmail.getFirstname()},</span>
-			</div>
 			<div class="title-div-lg">
 				<span class="itxt">
 					We're about to show you snippets from some movie reviews.

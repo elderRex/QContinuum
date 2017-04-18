@@ -43,7 +43,8 @@ public class SessionController {
 	}
 	
 	public Integer getSessionUserId(Principal principal) {
-		//if(principal == null) return null;
+		
+		// Two ways to extract user details, and post-registration state not always available so try method #2
 		Integer uid = 0;
 		try 
 		{
