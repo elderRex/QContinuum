@@ -158,7 +158,7 @@ public class UserController {
 			List<String> ls = new ArrayList<String>();
 		
 			for (UserFavoritesEntity f : favs) {
-				String json = gson.toJson(f.getId());
+				String json = gson.toJson(f.getItem().getId());
 		        ls.add(json);
 			}
 			
@@ -271,35 +271,40 @@ public class UserController {
 					// Get ID
 					Integer iid = arr.getInt(1);
 					
-					String mstr = (String)arr.get(0);
-					Integer isMatch = Integer.parseInt(mstr.substring(1,2));
-					if (isMatch == 1)
+					if (arr.getInt(0) == 1)
 					{
-						idsList.add(arr.getInt(1));
+						idsList.add(iid);
 					}
 				}
 				catch (Exception e)
 				{
-					
+					e.printStackTrace();
 				}
 			}
 
 			List<ItemsEntity> lie = userDAO.getSpecificItemsById(idsList,sesh);
-
-			for (ItemsEntity ie : lie)
+			try
 			{
-				List<ReviewsEntity> lre = reviewsDAO.getReviewsByItem(ie.getId(), sesh);
-				List<String> reviews_str = new ArrayList<String>();
-				for (ReviewsEntity re : lre)
+				for (ItemsEntity ie : lie)
 				{
-					String review = gson.toJson(re);
-					reviews_str.add(review);
+					List<ReviewsEntity> lre = reviewsDAO.getReviewsByItem(ie.getId(), sesh);
+					List<String> reviews_str = new ArrayList<String>();
+					for (ReviewsEntity re : lre)
+					{
+						String review = gson.toJson(re);
+						reviews_str.add(review);
+					}
+					String json = new Gson().toJson(ie);
+					List<String> combined_item = new ArrayList<String>();
+					combined_item.add(json);
+					combined_item.add(reviews_str.toString());
+					ls.add(combined_item);
 				}
-				String json = new Gson().toJson(ie);
-				List<String> combined_item = new ArrayList<String>();
-				combined_item.add(json);
-				combined_item.add(reviews_str.toString());
-				ls.add(combined_item);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				return "";
 			}
 			
 			

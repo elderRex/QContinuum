@@ -94,13 +94,15 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 		  data: recs
 		}).then(function(data) {
 			$scope.$apply(function() {
-				var parsed = JSON.parse(data);
-				for(var iii = 0; iii < parsed.length; iii++)
-				{
-					$scope.user_recommendations.push(parsed[iii]);
-				}
-				debugger
-				$scope.overlay_off = true;
+					if (data.length > 0)
+					{
+						var parsed = JSON.parse(data);
+						for(var iii = 0; iii < parsed.length; iii++)
+						{
+							$scope.user_recommendations.push(parsed[iii]);
+						}
+						$scope.overlay_off = true;
+					}
 				});
 			
 		});
@@ -122,6 +124,7 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	
 	$scope.isInFavs = function(id)
 	{
+		debugger
 		return $scope.favs.includes(id.toString());
 	}
 	
