@@ -9,7 +9,6 @@
 </head>
 <div class="overlay" ng-hide="fav_overlay_off">
 	<div class="loader"></div>
-	<div class="overlay-text">Almost there, we need about 3 minutes to get you good results...</div>
 </div>
 <body ng-app="app" scroll ng-controller="userController" ng-init="favorites_init()">
 	<jsp:include page="partials/navigation.jsp"/>

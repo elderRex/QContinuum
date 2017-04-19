@@ -14,7 +14,7 @@
 <body ng-app="app" scroll ng-controller="userController" ng-init="user_init()">
 	<jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
-		<div style="width: 80%;" class="centered-box">
+		<div style="width: 80%;" class="centered-box" ng-show="overlay_off">
 			<div style="text-align: center; font-weight: bold; margin-bottom: 10px;">Filter Results</div>
 			<div>
 				<span class="filter" ng-click="filter_results(fo)" ng-repeat="fo in filter_options" ng-style="fo.style">{{fo.text}}</span>
