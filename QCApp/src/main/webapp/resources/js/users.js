@@ -128,8 +128,28 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 		return $scope.favs.includes(id.toString());
 	}
 	
+	$scope.filter_options = [
+	   		{ value: 0, text: "Action"},
+	   		{ value: 1, text: "Comedy"},
+	   		{ value: 2, text: "Drama"},
+	   		{ value: 3, text: "War"},
+	   		{ value: 4, text: "Adventure"},
+	   		{ value: 5, text: "Horror"},
+	   		{ value: 6, text: "Documentary"},
+	   		{ value: 7, text: "Crime"},
+	   		{ value: 8, text: "Musical"},
+	   		{ value: 9, text: "Family"},
+	   		{ value: 10, text: "Mystery"},
+	   		{ value: 11, text: "Thriller"},
+	   		{ value: 12, text: "Sci-Fi"},
+	   		{ value: 13, text: "Romance"},
+	   		{ value: 14, text: "Western"}
+	   		];
+	
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
+		
+		
 		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
 			

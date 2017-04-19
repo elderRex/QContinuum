@@ -270,8 +270,9 @@ public class UserController {
 					
 					// Get ID
 					Integer iid = arr.getInt(1);
-					
-					if (arr.getInt(0) == 1)
+					// True or false in terms if match
+					Integer isMatch = Integer.parseInt(arr.getString(0).substring(1,2));
+					if (isMatch== 1)
 					{
 						idsList.add(iid);
 					}

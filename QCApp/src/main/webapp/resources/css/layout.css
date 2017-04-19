@@ -185,6 +185,27 @@ https://jsfiddle.net/fs6kafsn/5/
     z-index:9999;
     color:white;
 }
+.filter
+{
+	margin-right: 5px;
+	width: 120px;
+	background : white;
+	border: 1px solid #337ab7;
+	border-radius : 15px;
+	margin-top: 5px;
+	line-height: 20px;
+	color: #337ab7;
+	display:inline-block;
+	text-align: center;
+	cursor: pointer;
+	
+}
+.filter:hover
+{
+	background : #337ab7;
+	color: white;
+	
+}
 .overlay-text
 {
 	position: relative; 

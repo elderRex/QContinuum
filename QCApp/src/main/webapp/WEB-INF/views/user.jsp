@@ -14,6 +14,12 @@
 <body ng-app="app" scroll ng-controller="userController" ng-init="user_init()">
 	<jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
+		<div style="width: 80%;" class="centered-box">
+			<div style="text-align: center; font-weight: bold; margin-bottom: 10px;">Filter Results</div>
+			<div>
+				<span class="filter" ng-repeat="fo in filter_options">{{fo.text}}</span>
+			</div>
+		</div>
 		<div ng-repeat="r in user_recommendations" class="centered-box w-80 h-600">
 				<div class="col-xs-4">
 					<img src="/qc/resources/img/{{r[0].name}}.jpg" onError="this.onerror=null;this.src='/qc/resources/img/no_image.jpg';" />
