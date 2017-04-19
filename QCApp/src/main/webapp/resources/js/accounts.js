@@ -20,7 +20,6 @@ app.controller('accountsController', ['$scope', '$http','$location','pathingServ
 	
 	$scope.account_init = function()
 	{
-		debugger
 		$http.get(pathingService.getCurrentPath('user/get-user')).then(function(user)
 		{
 			$scope.user_detail = user.data;

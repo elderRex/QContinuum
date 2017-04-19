@@ -44,7 +44,6 @@ app.service('questionsService', function($http,$location,pathingService) {
 					    method: "GET",
 					    contentType: "text/html; charset=utf-8",
 					 }).then(function(questions) { 
-						 debugger
 						 user_questions = questions; 
 					});
 	    		return result;
@@ -75,6 +74,20 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	$scope.slice_size = 0;
 	$scope.slice_index = 0;
 	$scope.model_ids = [];
+	
+	$scope.active_filters = []
+	
+	$scope.all_results = true;
+	
+	$scope.itemVisible = function(item)
+	{
+		if (($scope.active_filters).includes(item[0].subject))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	
 	$scope.invoke_next_load = function()
 	{
@@ -124,26 +137,58 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	
 	$scope.isInFavs = function(id)
 	{
-		debugger
 		return $scope.favs.includes(id.toString());
+	}
+
+	
+	$scope.filter_results = function(filter)
+	{
+		if ($scope.active_filters.length == 0)
+		{
+			$scope.all_results = false;
+		}
+		else
+		{
+			$scope.all_results = true;
+		}
+		
+		
+		// If filter is disabled, add it to list, else remove it
+		if (filter.disabled)
+		{
+			$scope.active_filters.push(filter.text);
+		}
+		else
+		{
+			var i = array.indexOf(filter.text);
+			if (i !== -1) {
+			    array.splice(i, 1);
+			}
+		}
+		filter.disabled = !filter.disabled;
+	}
+	
+	$scope.remove_filter = function(filter)
+	{
+		
 	}
 	
 	$scope.filter_options = [
-	   		{ value: 0, text: "Action"},
-	   		{ value: 1, text: "Comedy"},
-	   		{ value: 2, text: "Drama"},
-	   		{ value: 3, text: "War"},
-	   		{ value: 4, text: "Adventure"},
-	   		{ value: 5, text: "Horror"},
-	   		{ value: 6, text: "Documentary"},
-	   		{ value: 7, text: "Crime"},
-	   		{ value: 8, text: "Musical"},
-	   		{ value: 9, text: "Family"},
-	   		{ value: 10, text: "Mystery"},
-	   		{ value: 11, text: "Thriller"},
-	   		{ value: 12, text: "Sci-Fi"},
-	   		{ value: 13, text: "Romance"},
-	   		{ value: 14, text: "Western"}
+	   		{ value: 0, text: "Action", disabled : true},
+	   		{ value: 1, text: "Comedy", disabled : true},
+	   		{ value: 2, text: "Drama", disabled : true},
+	   		{ value: 3, text: "War", disabled : true},
+	   		{ value: 4, text: "Adventure", disabled : true},
+	   		{ value: 5, text: "Horror", disabled : true},
+	   		{ value: 6, text: "Documentary", disabled : true},
+	   		{ value: 7, text: "Crime", disabled : true},
+	   		{ value: 8, text: "Musical", disabled : true},
+	   		{ value: 9, text: "Family", disabled : true},
+	   		{ value: 10, text: "Mystery", disabled : true},
+	   		{ value: 11, text: "Thriller", disabled : true},
+	   		{ value: 12, text: "Sci-Fi", disabled : true},
+	   		{ value: 13, text: "Romance", disabled : true},
+	   		{ value: 14, text: "Western", disabled : true}
 	   		];
 	
 	// Initialize Users Main Recommendations page
@@ -160,14 +205,25 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 			
 			$scope.model_ids = promise;
 			$scope.slice_size = Math.round(promise.length/50);
-			if ($scope.slice_size > 5)
-				$scope.slice_size = 5;
+			if ($scope.slice_size > 20)
+				$scope.slice_size = 20;
 			
 			// Get the first_slice
 			var sub_arr = $scope.model_ids.slice(0,$scope.slice_size);
 			var model_recommendations = JSON.stringify(sub_arr);
 			$scope.get_rec_slice(model_recommendations);
 		 });
+	}
+	
+	$scope.favorites_init = function()
+	{
+		$scope.fav_overlay_off = false;
+		$http.get(pathingService.getCurrentPath('user/get-user-favorites')).then(function(favorites)
+		{
+			$scope.user_favorites = favorites.data;
+			debugger
+			$scope.fav_overlay_off = true;
+		});
 	}
 	
 	// Get a random selection of review from the database

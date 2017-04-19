@@ -17,10 +17,11 @@
 		<div style="width: 80%;" class="centered-box">
 			<div style="text-align: center; font-weight: bold; margin-bottom: 10px;">Filter Results</div>
 			<div>
-				<span class="filter" ng-repeat="fo in filter_options">{{fo.text}}</span>
+				<span class="filter" ng-click="filter_results(fo)" ng-repeat="fo in filter_options" ng-show="fo.disabled">{{fo.text}}</span>
+				<span class="filter" style="background : #337ab7; color: white;" ng-click="filter_results(fo)" ng-repeat="fo in filter_options" ng-show="!fo.disabled">{{fo.text}}</span>
 			</div>
 		</div>
-		<div ng-repeat="r in user_recommendations" class="centered-box w-80 h-600">
+		<div ng-repeat="r in user_recommendations" class="centered-box w-80 h-600" ng-show="itemVisible(r) || all_results">
 				<div class="col-xs-4">
 					<img src="/qc/resources/img/{{r[0].name}}.jpg" onError="this.onerror=null;this.src='/qc/resources/img/no_image.jpg';" />
 					<div class="item-elem" style="margin-top: 10px;">

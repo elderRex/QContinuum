@@ -10,6 +10,10 @@
 		</div>
 		<div class="col-xs-3 nav-col">					
 			<security:authorize access="hasRole('ROLE_USER')">
+				<a href="<c:url value="/user/favorites" />" >
+  						<span style="color: #337ab7;" class="glyphicon glyphicon-star"></span>
+				</a>
+				<span style="margin-right: 20px"></span>
 				<a href="<c:url value="/user" />" >
   						<span class="glyphicon glyphicon-film"></span>
 				</a>

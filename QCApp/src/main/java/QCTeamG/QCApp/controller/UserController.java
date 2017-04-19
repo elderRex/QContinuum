@@ -81,6 +81,14 @@ public class UserController {
 		return "account";
 	}
 	
+	@RequestMapping(value = "user/favorites", method = RequestMethod.GET)
+	public String favorites(HttpServletRequest request) {
+		SessionController sco = new SessionController();
+		beanFactory.autowireBean(sco);
+		sco.setSession(request);
+		return "favorite";
+	}
+	
 	@Transactional
 	@RequestMapping(value="/user/get-questions",method=RequestMethod.GET,produces="text/html;charset=UTF-8")
 	public @ResponseBody String getUserSetupQuestions(Principal principal, HttpServletRequest request) {
@@ -136,11 +144,38 @@ public class UserController {
 		
 	}
 	
-	
-	
-	
 	List<String> user_favs = new ArrayList<String>();
 	
+	@RequestMapping(value="/user/get-user-favorites",method=RequestMethod.GET,produces={"text/html;charset=UTF-8"})
+	public @ResponseBody String getUserFavoritItems(Principal principal, HttpServletRequest request) {
+		
+		try
+		{
+			HttpSession session = request.getSession(true);
+			SessionController sco = new SessionController();
+			beanFactory.autowireBean(sco);
+			Integer uid = sco.getSessionUserId(principal);
+			List<UserFavoritesEntity> favs = reviewsDAO.getUserFavorites(uid);
+			
+			Gson gson = new Gson();
+			 
+			List<String> ls = new ArrayList<String>();
+		
+			for (UserFavoritesEntity f : favs) {
+				String json = gson.toJson(f.getItem());
+		        ls.add(json);
+			}
+			
+			String clean = ls.toString().replaceAll("�","é");
+			return clean;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return "";
+		
+	}
 	
 	@RequestMapping(value="/user/get-user-favs",method=RequestMethod.GET,produces={"application/xml", "application/json"})
 	public @ResponseBody String getUserFavs(Principal principal, HttpServletRequest request) {
