@@ -17,6 +17,7 @@
     
         <!--  Entity Mappings -->
    		<mapping class="QCTeamG.QCApp.entities.UsersEntity" />
+   		<mapping class="QCTeamG.QCApp.entities.UserFavoritesEntity" />
    		<mapping class="QCTeamG.QCApp.entities.UserRolesEntity" />
    		<mapping class="QCTeamG.QCApp.entities.ItemsEntity" />
    		<mapping class="QCTeamG.QCApp.entities.ReviewsEntity" />

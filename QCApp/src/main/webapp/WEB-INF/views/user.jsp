@@ -14,24 +14,50 @@
 <body ng-app="app" scroll ng-controller="userController" ng-init="user_init()">
 	<jsp:include page="partials/navigation.jsp"/>
 	<div class="inner-frame">
-		<div ng-repeat="r in user_recommendations" class="centered-box w-50 h-500">
-				<div class="item-elem" style="text-align: center;">
-					<span>Name: </span><span style="font-weight: none; color : grey;">{{r[0].name}}</span>
-				</div>
-				<div class="item-elem">
-					<span>Description: </span><span class="item-values">{{r[0].description}}</span>
-				</div>
-				<div class="item-elem">
-					Sample Reviews
-				</div>
-				<div class="scroller">
-					<div class="item-values" style="margin : 10px;" ng-repeat="rev in r[1] | limitTo: 4">
-						<div>Rating : {{rev.rating}}</div>
-						<div class="inline-ellipsis">"{{rev.review_text}}"</div>
+		<div ng-repeat="r in user_recommendations" class="centered-box w-80 h-600">
+				<div class="col-xs-4">
+					<img src="/qc/resources/img/{{r[0].name}}.jpg" onError="this.onerror=null;this.src='/qc/resources/img/no_image.jpg';" />
+					<div class="item-elem" style="margin-top: 10px;">
+						Subject :
+						<span style="font-weight: lighter" ng-show="(r[0].subject.length > 2)">
+							{{r[0].subject}}
+						</span>
+						<span style="font-weight: lighter" ng-show="!(r[0].subject.length > 2)">
+							General
+						</span>
+					</div>
+					<div class="item-elem" style="margin-top: 10px; height: 175px; overflow: auto;">
+						Description : <span style="font-weight: lighter">{{r[0].description}}</span>
 					</div>
 				</div>
-				<div class="item-elem">
-					<span>Website: </span><span class="item-values"><a ng-href="http://www.{{r[0].website}}" target="_blank">{{r[0].website}}</a></span>
+				<div class="col-xs-6">
+					<div class="item-elem" style="text-align: center;">
+						<div class="col-xs-10">
+							<span>Name: </span><span style="font-weight: none; color : grey;">{{r[0].name}}</span>
+						</div>
+					</div>
+					<div class="item-elem">
+						Sample Reviews
+					</div>
+					<div>
+						<div class="item-values" style="margin : 10px;" ng-repeat="rev in r[1] | limitTo: 6">
+							<div>Rating : {{rev.rating}}</div>
+							<div class="inline-ellipsis">"{{rev.review_text}}"</div>
+						</div>
+					</div>
+				<!-- 	<div class="item-elem">
+						<span>Website: </span><span class="item-values"><a ng-href="http://www.{{r[0].website}}" target="_blank">{{r[0].website}}</a></span>
+					</div> -->
+				</div>
+				<div class="col-xs-2">
+					<div ng-show="!isInFavs(r[0].id) && !r[0].fav" style="cursor: pointer">			
+						<span class="glyphicon glyphicon-star-empty" style="color: gold; font-size: 25px" ng-click="add_favorite(r,r[0].id)"></span>
+						Add Favorite
+					</div>
+					<div ng-show="isInFavs(r[0].id) || r[0].fav">			
+						<span class="glyphicon glyphicon-star" style="color: green; font-size: 25px"></span>
+						Your Favorite
+					</div>
 				</div>
 		</div>
 	</div>

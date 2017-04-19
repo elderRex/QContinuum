@@ -86,7 +86,6 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	
 	$scope.get_rec_slice = function(recs)
 	{
-		
 		// Retrieve ItemsEntity for every recommendation
 		$.ajax({
 		  type: "POST",
@@ -100,21 +99,48 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 				{
 					$scope.user_recommendations.push(parsed[iii]);
 				}
-				
-				
+				debugger
 				$scope.overlay_off = true;
 				});
 			
 		});
 	}
 	
+	$scope.favs = {};
+	
+	$scope.add_favorite = function(r, iid)
+	{
+		r[0].fav = true;
+		var req = $http.post(
+				(pathingService.getCurrentPath('user/create-favorite')), iid.toString())
+				req.success(function(data)
+				{
+					
+				}
+		);
+	}
+	
+	$scope.isInFavs = function(id)
+	{
+		return $scope.favs.includes(id.toString());
+	}
+	
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
 		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
+			
+			$http.get(pathingService.getCurrentPath('user/get-user-favs')).then(function(favs)
+			{
+				$scope.favs = favs.data;
+			});
+			
 			$scope.model_ids = promise;
 			$scope.slice_size = Math.round(promise.length/50);
-
+			if ($scope.slice_size > 5)
+				$scope.slice_size = 5;
+			
+			// Get the first_slice
 			var sub_arr = $scope.model_ids.slice(0,$scope.slice_size);
 			var model_recommendations = JSON.stringify(sub_arr);
 			$scope.get_rec_slice(model_recommendations);

@@ -136,6 +136,44 @@ public class UserController {
 		
 	}
 	
+	
+	
+	
+	List<String> user_favs = new ArrayList<String>();
+	
+	
+	@RequestMapping(value="/user/get-user-favs",method=RequestMethod.GET,produces={"application/xml", "application/json"})
+	public @ResponseBody String getUserFavs(Principal principal, HttpServletRequest request) {
+		
+		try
+		{
+			HttpSession session = request.getSession(true);
+			SessionController sco = new SessionController();
+			beanFactory.autowireBean(sco);
+			Integer uid = sco.getSessionUserId(principal);
+			List<UserFavoritesEntity> favs = reviewsDAO.getUserFavorites(uid);
+			
+			Gson gson = new Gson();
+			 
+			List<String> ls = new ArrayList<String>();
+		
+			for (UserFavoritesEntity f : favs) {
+				String json = gson.toJson(f.getId());
+		        ls.add(json);
+			}
+			
+			String json = new Gson().toJson(ls);
+			return json.toString();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return "";
+		
+	}
+	
+	
 	// Redirection depending on user authentication level
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String user(Principal principal, HttpServletRequest request) {
@@ -208,6 +246,11 @@ public class UserController {
 			UsersEntity ue = userDAO.getUserById(uid);
 			
 			Gson gson = new Gson();
+			
+			// Forced to do this parse because some people can't be bothered JSONifying output
+			String mod = model_selections.substring(1, model_selections.length() - 1);
+			
+			
 			JSONArray all_selections = new JSONArray(model_selections);
 			
 			List<ItemsEntity> user_recommendations = new ArrayList<ItemsEntity>();
@@ -220,10 +263,24 @@ public class UserController {
 			
 			for (int i = 0; i < all_selections.length(); i++)
 			{
-				JSONArray arr = all_selections.getJSONArray(i);
-				if (arr.getInt(0) == 1)
+				try
 				{
-					idsList.add(arr.getInt(1));
+					// Account for non-JSONified model output
+					JSONArray arr = all_selections.getJSONArray(i);
+					
+					// Get ID
+					Integer iid = arr.getInt(1);
+					
+					String mstr = (String)arr.get(0);
+					Integer isMatch = Integer.parseInt(mstr.substring(1,2));
+					if (isMatch == 1)
+					{
+						idsList.add(arr.getInt(1));
+					}
+				}
+				catch (Exception e)
+				{
+					
 				}
 			}
 
@@ -244,6 +301,8 @@ public class UserController {
 				combined_item.add(reviews_str.toString());
 				ls.add(combined_item);
 			}
+			
+			
 
 			// Data was inserted incorrectly into db, limited time to fix, so compensate for missing characters
 			// with by far the most likely culprit,the accent aigu.
@@ -312,28 +371,36 @@ public class UserController {
 		@RequestMapping(value="/user/get-all-favorites",method=RequestMethod.GET,produces="text/html;charset=UTF-8")
 		public @ResponseBody String getUserFavorites(Principal principal, HttpServletRequest request) {
 			
-			HttpSession session = request.getSession(true);
+			try
+			{
+				HttpSession session = request.getSession(true);
+				
+				SessionController sco = new SessionController();
+				beanFactory.autowireBean(sco);
+				Integer uid = sco.getSessionUserId(principal);
+				
+				List<UserFavoritesEntity> user_favs = reviewsDAO.getUserFavorites(uid);
+				
+				Gson gson = new Gson();
+				 
+				List<String> ls = new ArrayList<String>();
 			
-			SessionController sco = new SessionController();
-			beanFactory.autowireBean(sco);
-			Integer uid = sco.getSessionUserId(principal);
-			
-			List<UserFavoritesEntity> user_favs = reviewsDAO.getUserFavorites(uid);
-			
-			Gson gson = new Gson();
-			 
-			List<String> ls = new ArrayList<String>();
-		
-			for (UserFavoritesEntity uf : user_favs) {
-				String json = gson.toJson(uf);
-		        ls.add(json);
+				for (UserFavoritesEntity uf : user_favs) {
+					String json = gson.toJson(uf);
+			        ls.add(json);
+				}
+				// Data was inserted incorrectly into db, limited time to fix, so compensate for missing characters
+				// with by far the most likely culprit,the accent aigu.
+				
+				String res = ls.toString();
+				String clean = res.replaceAll("�","é");
+				return clean;
 			}
-			// Data was inserted incorrectly into db, limited time to fix, so compensate for missing characters
-			// with by far the most likely culprit,the accent aigu.
-			
-			String res = ls.toString();
-			String clean = res.replaceAll("�","é");
-			return clean;
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			return "";
 		}
 		
 	

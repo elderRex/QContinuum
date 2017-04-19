@@ -63,7 +63,7 @@ public class ReviewsDaoI implements ReviewsDAO {
 	/* Methods for getting and posting user favorites */
 	public List<UserFavoritesEntity> getUserFavorites(int uid) {
 		Session sesh = sessionFactory.getCurrentSession();
-		List<UserFavoritesEntity> ufs = (List<UserFavoritesEntity>)sesh.createQuery("from UserFavoritesEntity where uid = "+uid).list();
+		List<UserFavoritesEntity> ufs = (List<UserFavoritesEntity>)sesh.createQuery("from UserFavoritesEntity uf where uf.uid = "+uid).list();
 		return ufs;
 	}
 	
