@@ -17,8 +17,7 @@
 		<div style="width: 80%;" class="centered-box">
 			<div style="text-align: center; font-weight: bold; margin-bottom: 10px;">Filter Results</div>
 			<div>
-				<span class="filter" ng-click="filter_results(fo)" ng-repeat="fo in filter_options" ng-show="fo.disabled">{{fo.text}}</span>
-				<span class="filter" style="background : #337ab7; color: white;" ng-click="filter_results(fo)" ng-repeat="fo in filter_options" ng-show="!fo.disabled">{{fo.text}}</span>
+				<span class="filter" ng-click="filter_results(fo)" ng-repeat="fo in filter_options" ng-style="fo.style">{{fo.text}}</span>
 			</div>
 		</div>
 		<div ng-repeat="r in user_recommendations" class="centered-box w-80 h-600" ng-show="itemVisible(r) || all_results">
@@ -67,6 +66,7 @@
 					</div>
 				</div>
 		</div>
+		<div id="data_loader" class="loader" style="width: 2em; height:2em; position: fixed; top: 95%;"></div>
 	</div>
 </body>
 </html>

@@ -56,9 +56,13 @@ app.service('questionsService', function($http,$location,pathingService) {
 app.directive("scroll", function ($window) {
     return function(scope, element, attrs) {
         angular.element($window).bind("scroll", function() {
-        		if($(window).scrollTop() + $(window).height() > $(document).height() - 1600) {
-        			if (scope.model_ids.length > 0)
-        				scope.invoke_next_load();
+        		if (scope.allow_loading)
+        		{
+        			var loadMore = $(window).scrollTop() + $(window).height() == $(document).height();
+	        		if(loadMore) {
+	        			if (scope.model_ids.length > 0)
+	        				scope.invoke_next_load();
+	        		}
         		}
         });
     };
@@ -70,10 +74,12 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	$scope.user_answers = {};
 	$scope.user_recommendations = [];
 	$scope.overlay_off = false;
+	$scope.allow_loading = false;
 	$scope.questions_answered = false;
 	$scope.slice_size = 0;
 	$scope.slice_index = 0;
 	$scope.model_ids = [];
+	$scope.load_more_on = false;
 	
 	$scope.active_filters = []
 	
@@ -91,6 +97,7 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	
 	$scope.invoke_next_load = function()
 	{
+		$("#data_loader").show();
 		$scope.slice_index += 1;
 		var sub_arr = $scope.model_ids.slice($scope.slice_index*$scope.slice_size,$scope.slice_size+($scope.slice_index*$scope.slice_size));
 		var model_recommendations = JSON.stringify(sub_arr);
@@ -115,6 +122,8 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 							$scope.user_recommendations.push(parsed[iii]);
 						}
 						$scope.overlay_off = true;
+						$scope.load_more_on = false;
+						$("#data_loader").hide();
 					}
 				});
 			
@@ -140,18 +149,9 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 		return $scope.favs.includes(id.toString());
 	}
 
-	
 	$scope.filter_results = function(filter)
-	{
-		if ($scope.active_filters.length == 0)
-		{
-			$scope.all_results = false;
-		}
-		else
-		{
-			$scope.all_results = true;
-		}
-		
+	{	
+		// If filter is active, change style
 		
 		// If filter is disabled, add it to list, else remove it
 		if (filter.disabled)
@@ -160,12 +160,36 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 		}
 		else
 		{
-			var i = array.indexOf(filter.text);
+			var i = $scope.active_filters.indexOf(filter.text);
 			if (i !== -1) {
-			    array.splice(i, 1);
+				$scope.active_filters.splice(i, 1);
 			}
 		}
+		
 		filter.disabled = !filter.disabled;
+		
+		// If Undefined, change to active style filter
+		if (filter.style == undefined)
+		{
+			filter.style= {"background-color": "#337ab7", "color" : "white"}
+		}
+		else if (!filter.disabled)
+		{
+			filter.style= {"background-color": "#337ab7", "color" : "white"}
+		}
+		else
+		{
+			filter.style= {"background-color": "white", "color": "#337ab7"}
+		}
+		
+		if ($scope.active_filters.length == 0)
+		{
+			$scope.all_results = true;
+		}
+		else
+		{
+			$scope.all_results = false;
+		}
 	}
 	
 	$scope.remove_filter = function(filter)
@@ -193,7 +217,7 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 	
 	// Initialize Users Main Recommendations page
 	$scope.user_init = function() {
-		
+		$("#data_loader").hide();
 		
 		// Get Item Recommendations ID's from model API for a given user
 		questionsService.getRecommendations().then(function(promise) {
@@ -205,13 +229,14 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 			
 			$scope.model_ids = promise;
 			$scope.slice_size = Math.round(promise.length/50);
-			if ($scope.slice_size > 20)
-				$scope.slice_size = 20;
+			if ($scope.slice_size > 10)
+				$scope.slice_size = 10;
 			
 			// Get the first_slice
 			var sub_arr = $scope.model_ids.slice(0,$scope.slice_size);
 			var model_recommendations = JSON.stringify(sub_arr);
 			$scope.get_rec_slice(model_recommendations);
+			$scope.allow_loading = true;
 		 });
 	}
 	
@@ -221,7 +246,6 @@ app.controller('userController', ['$scope', '$http','$location','pathingService'
 		$http.get(pathingService.getCurrentPath('user/get-user-favorites')).then(function(favorites)
 		{
 			$scope.user_favorites = favorites.data;
-			debugger
 			$scope.fav_overlay_off = true;
 		});
 	}
