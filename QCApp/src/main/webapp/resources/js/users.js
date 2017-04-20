@@ -1,11 +1,13 @@
 var app = angular.module('app', ['pathing_controller']);
 
+
 //Retrieve questions from the db
 app.service('questionsService', function($http,$location,pathingService) {
 	
 	var user_questions;
 	var user_recommendations;
 	var model_recommendations;
+	$http.defaults.cache = true;
 	
 	return {
 		fetchQuestions: function() { return user_questions; },

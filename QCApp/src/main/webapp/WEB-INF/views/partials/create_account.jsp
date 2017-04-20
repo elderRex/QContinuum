@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>Registration</title>
 <div class="centered-box w-25">
+	<div class="error-message" ng-bind='msg' ng-hide='hide'></div>
 	<div class="title">Create Account</div>
 	<form >
 	    <div class="row">

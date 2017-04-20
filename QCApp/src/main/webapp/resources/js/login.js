@@ -5,6 +5,8 @@ app.controller('loginController', ['$scope', '$http','$window','$location','path
 	$scope.data = {};
 	
 	$scope.overlay_off = true;
+	$scope.hide = true;
+	$scope.msg = '';
 	
 	/*
 	 * Password Change Functionality
@@ -93,6 +95,7 @@ app.controller('loginController', ['$scope', '$http','$window','$location','path
 	
 	// Register New User (Customer) (Just Email)
 	$scope.register_user = function() {
+		$scope.hide = true;
 		if ($scope.registration 
 				&& $scope.registration.firstname
 				&& $scope.registration.lastname
@@ -109,6 +112,10 @@ app.controller('loginController', ['$scope', '$http','$window','$location','path
 		else
 		{
 			//$( "#warning-more-information" ).dialog( "open" );
+			if ($scope.registration.password1 != $scope.registration.password2){
+				$scope.hide=false;
+				$scope.msg="Passwords do not match. Please re-enter.";
+			}
 		}
 	}
 	
