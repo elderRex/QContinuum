@@ -101,24 +101,25 @@ app.controller('loginController', ['$scope', '$http','$window','$location','path
 				&& $scope.registration.lastname
 				&& $scope.registration.email
 				&& $scope.registration.password1 == $scope.registration.password2
-		   		&& $scope.registration.password1.length >= 6)
+				&& $scope.registration.password1.length >= 6)
 		{
 			$scope.overlay_off = false;
 			$http.post(pathingService.getCurrentPath('new-user/register'), $scope.registration).then(function(data) {
 				window.location.href = pathingService.getCurrentPath('user/setup');
 			}, function errorCallback(response) {
-				// TODO Error on callback
+				$scope.overlay_off = true;
+				$scope.hide=false;
+				$scope.msg="Email address is already taken. Please enter another one.";
 			  });
 		}
 		else
 		{
 			//$( "#warning-more-information" ).dialog( "open" );
+			$scope.hide=false;
 			if ($scope.registration.password1 != $scope.registration.password2){
-				$scope.hide=false;
 				$scope.msg="Passwords do not match. Please re-enter.";
 			} else if ($scope.registration.password1.length < 6){
-				$scope.hide=false;
-				$scope.msg="Passwords must contain at least 6 characters. Please re-enter.";
+				$scope.msg="Passwords must contain at least 6 characters. Please re-enter."
 			}
 		}
 	}
