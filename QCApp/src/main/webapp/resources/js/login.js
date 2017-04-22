@@ -100,7 +100,8 @@ app.controller('loginController', ['$scope', '$http','$window','$location','path
 				&& $scope.registration.firstname
 				&& $scope.registration.lastname
 				&& $scope.registration.email
-				&& $scope.registration.password1 == $scope.registration.password2)
+				&& $scope.registration.password1 == $scope.registration.password2
+		   		&& $scope.registration.password1.length >= 6)
 		{
 			$scope.overlay_off = false;
 			$http.post(pathingService.getCurrentPath('new-user/register'), $scope.registration).then(function(data) {
@@ -115,6 +116,9 @@ app.controller('loginController', ['$scope', '$http','$window','$location','path
 			if ($scope.registration.password1 != $scope.registration.password2){
 				$scope.hide=false;
 				$scope.msg="Passwords do not match. Please re-enter.";
+			} else if ($scope.registration.password1.length < 6){
+				$scope.hide=false;
+				$scope.msg="Passwords must contain at least 6 characters. Please re-enter.";
 			}
 		}
 	}
